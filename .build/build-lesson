@@ -1,0 +1,4 @@
+#!/usr/bin/env Rscript --vanilla
+library("fs")
+library("sandpaper")
+sandpaper::build_lesson()

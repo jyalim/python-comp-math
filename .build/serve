@@ -1,0 +1,5 @@
+#!/usr/bin/env Rscript --vanilla
+# file system package for cross-platform paths
+library("fs") 
+library("sandpaper")
+sandpaper::serve()
