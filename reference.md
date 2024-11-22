@@ -281,7 +281,7 @@ against which the results of a test can be compared.
 
 [type]{#type}
 :   The classification of something in a program (for example, the contents of a variable)
-as a kind of number (e.g. [floating-point](#floating-point-number), [integer](#integer)),
+as a kind of number (e.g. [floating-point](#float), [integer](#integer)),
 [string](#string), or something else.
 
 [type of error]{#type-of-error}
