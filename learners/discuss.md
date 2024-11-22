@@ -306,7 +306,7 @@ from ipythonblocks import show_color
 show_color(214, 90, 127)
 ```
 
-![](fig/ipythonblocks_show_color_example.png)
+![](fig/ipythonblocks_show_color_example.png){alt='alt text'}
 
 It also provides a table of standard colors:
 

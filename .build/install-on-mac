@@ -13,4 +13,5 @@ options(repos = c(
 
 # Install the template packages to your R library
 install.packages(c("sandpaper", "varnish", "pegboard"))
+sandpaper::update_varnish()
 EOF

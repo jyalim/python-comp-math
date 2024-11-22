@@ -1,0 +1,4 @@
+#!/usr/bin/env Rscript --vanilla
+library("fs")
+library("sandpaper")
+sandpaper::ci_deploy(md_branch = "md-outputs", site_branch = "gh-pages")
