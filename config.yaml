@@ -87,6 +87,6 @@ profiles:
 # sandpaper and varnish versions) should live
 
 
-url: 'https://swcarpentry.github.io/python-novice-inflammation'
+url: 'https://jyalim.github.io/python-comp-math'
 analytics: carpentries
 lang: en
