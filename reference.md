@@ -4,7 +4,6 @@ title: 'Glossary'
 
 ## Glossary
 
-{:auto\_ids}
 [additive color model]{#additive-color-model}
 :   A way to represent colors as the sum of contributions from primary colors
 such as [red, green, and blue](#rgb).
@@ -281,7 +280,7 @@ against which the results of a test can be compared.
 
 [type]{#type}
 :   The classification of something in a program (for example, the contents of a variable)
-as a kind of number (e.g. [floating-point](#float), [integer](#integer)),
+as a kind of number (e.g. [floating-point](#floating-point-number), [integer](#integer)),
 [string](#string), or something else.
 
 [type of error]{#type-of-error}
