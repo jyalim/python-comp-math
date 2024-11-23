@@ -12,12 +12,20 @@ exercises: 10
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
-- What basic data types can I work with in Python?
+- What basic object types can I work with in Python?
 - How can I create a new variable in Python?
 - How do I use a function?
 - Can I change the value associated with a variable after I create it?
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
+
+:::::::::::::::::::::::::::::::::::::::::  callout
+
+If you are using a Jupyter notebook to run the examples, the keyboard
+shortcut, <kbd>shift</kbd>+<kbd>enter</kbd>, will evaluate a cell and
+generate output.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Variables
 
@@ -30,6 +38,7 @@ Any Python interpreter can be used as a calculator:
 ```output
 23
 ```
+
 
 This is great but not very interesting.
 To do anything useful with data, we need to assign its value to a *variable*.
@@ -126,7 +135,7 @@ We may want to store our patient's weight in pounds as well as kilograms:
 
 ```python
 LB_PER_KG = 2.2
-weight_lb = LB_PER_KG * weight_kg
+patient_weight_lb = LB_PER_KG * patient_weight_kg
 ```
 
 We might decide to add a prefix to our patient identifier:
@@ -163,7 +172,7 @@ about how functions work and how to create our own in later episodes.
 We can display multiple things at once using only one `print` call:
 
 ```python
-print(patient_id, 'weight in kilograms:', weight_kg)
+print(patient_id, 'weight in kilograms:', patient_weight_kg)
 ```
 
 ```output
@@ -187,33 +196,33 @@ print(type(patient_id))
 Moreover, we can do arithmetic with variables right inside the `print` function:
 
 ```python
-print('weight in pounds:', 2.2 * weight_kg)
+print('patient weight in pounds:', 2.2 * patient_weight_kg)
 ```
 
 ```output
-weight in pounds: 132.66
+patient weight in pounds: 132.66
 ```
 
-The above command, however, did not change the value of `weight_kg`:
+The above command, however, did not change the value of `patient_weight_kg`:
 
 ```python
-print(weight_kg)
+print(patient_weight_kg)
 ```
 
 ```output
 60.3
 ```
 
-To change the value of the `weight_kg` variable, we have to
-**assign** `weight_kg` a new value using the equals `=` sign:
+To change the value of the `patient_weight_kg` variable, we have to
+**assign** `patient_weight_kg` a new value using the equals `=` sign:
 
 ```python
-weight_kg = 65.0
-print('weight in kilograms is now:', weight_kg)
+patient_weight_kg = 65.0
+print('patient weight in kilograms is now:', patient_weight_kg)
 ```
 
 ```output
-weight in kilograms is now: 65.0
+patient weight in kilograms is now: 65.0
 ```
 
 :::::::::::::::::::::::::::::::::::::::::  callout
@@ -234,12 +243,12 @@ its own variable:
 ```python
 # There are 2.2 pounds per kilogram
 LB_PER_KG = 2.2
-weight_lb = LB_PER_KG * weight_kg
-print('weight in kilograms:', weight_kg, 'and in pounds:', weight_lb)
+patient_weight_lb = LB_PER_KG * patient weight_kg
+print('patient weight in kilograms:', patient_weight_kg, 'and in pounds:', patient_weight_lb)
 ```
 
 ```output
-weight in kilograms: 65.0 and in pounds: 143.0
+patient weight in kilograms: 65.0 and in pounds: 143.0
 ```
 
 Everything in a line of code following the '#' symbol is a
@@ -250,28 +259,31 @@ programmers or their future selves.
 ![](fig/python-sticky-note-variables-02.svg){alt='Value of 65.0 with weight\_kg label stuck on it, and value of 143.0 with weight\_lb label stuck on it'}
 
 Similar to above, the expression 
-`LB_PER_KG * weight_kg` 
+`LB_PER_KG * patient_weight_kg` 
 is evaluated to
-`143.0`, and then this value is assigned to the variable `weight_lb`
-(i.e., the sticky note `weight_lb` is placed on `143.0`). 
+`143.0`, and then this value is assigned to the variable `patient_weight_lb`
+(i.e., the sticky note `patient_weight_lb` is placed on `143.0`). 
 At this point, each variable is "stuck" to completely distinct and
 unrelated values.
 
-Let's now change `weight_kg`:
+Let's now change `patient_weight_kg` and introduce an f-string (string
+with first quote prefixed with an `f`), a fast way for Python and the
+programmer to interpolate strings with potentially formatted variable
+values:
 
 ```python
-weight_kg = 100.0
-print('weight in kilograms is now:', weight_kg, 'and weight in pounds is still:', weight_lb)
+patient_weight_kg = 100.0
+print(f'patient weight in kilograms is now: {patient_weight_kg} and weight in pounds is still {patient_weight_lb}')
 ```
 
 ```output
-weight in kilograms is now: 100.0 and weight in pounds is still: 143.0
+patient weight in kilograms is now: 100.0 and weight in pounds is still: 143.0
 ```
 
 ![](fig/python-sticky-note-variables-03.svg){alt='Value of 100.0 with label weight\_kg stuck on it, and value of 143.0 with label weight\_lbstuck on it'}
 
-Since `weight_lb` doesn't "remember" where its value comes from,
-it is not updated when we change `weight_kg`.
+Since `patient_weight_lb` doesn't "remember" where its value comes from,
+it is not updated when we change `patient_weight_kg`.
 
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -418,6 +430,9 @@ print('this will fail'/1)
 TypeError: unsupported operand type(s) for /: 'str' and 'int'
 ```
 
+A final operator to note is the `matmul` symbol, `@`. This will be
+utilized in the next section after introducing a powerful Python library
+called `numpy`.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
