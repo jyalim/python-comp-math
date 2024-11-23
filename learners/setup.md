@@ -47,7 +47,7 @@ with your mouse.
 * `lightwork` partition, 
 * `public` 'QOS',
 * `1` core,
-* `4` GiB of memory,
+* `4` GiB of memory,    
 and submit the form.
 4. Your Jupyter Server should be ready within a minute. Select `Launch`
    on the resulting page.
@@ -57,12 +57,12 @@ and submit the form.
 The lesson materials will be already available in your supercomputer's
 Desktop directory. If for whatever reason these are corrupted, re-obtain
 the materials by either:
-a. Copying the source lesson material from
 <span style='color:red'>
+a. Copying the source lesson material from
 `/packages/public/sol-tutorials/python-comp-math`
-</span>
 or
-b. Copying the source lesson materials from the <span style='color:red'>internet</span>.
+b. Copying the source lesson materials from the internet.
+</span>
 
 ------------------------------------------------------------------------
 
