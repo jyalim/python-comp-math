@@ -548,9 +548,62 @@ Finish
       The actual schedule may vary slightly depending on the topics and exercises chosen by the instructor.
       </p>
       </section><section id="setup"><section><h2 class="section-heading" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a></h2>
-<hr class="half-width"><p>This lesson is designed to be run on the Sol supercomputer. All of
-the software and data used in this lesson are freely available online,
-and instructions on how to obtain them are provided below.</p>
+<hr class="half-width"><p>This lesson is designed to be run on the Sol supercomputer, within a
+Jupyter Lab server. This is to ensure a modern and consistent
+environment among attendees. Instructions are given below on how to
+connect to the supercomputer and get started. All of the software and
+data used in this lesson are freely available online, and instructions
+on how to obtain them are provided within the lesson.</p>
+</section><section><h2 class="section-heading" id="connect-to-the-supercomputer">Connect to the supercomputer<a class="anchor" aria-label="anchor" href="#connect-to-the-supercomputer"></a></h2>
+<hr class="half-width"><div class="section level4">
+<h4 id="first-if-off-campus-connect-to-vpn">First, if off campus, connect to VPN<a class="anchor" aria-label="anchor" href="#first-if-off-campus-connect-to-vpn"></a></h4>
+<p>Attendees that are off campus will need to first connect to <a href="https://sslvpn.asu.edu" class="external-link">ASU’s virtual private network (VPN)</a>.
+If not already installed, use the previous link, sign in as if signing
+into MyASU, and follow the download and installation instructions. To
+sign into the VPN, connect to <a href="https://sslvpn.asu.edu" class="external-link">sslvpn.asu.edu</a> with the now installed
+Cisco VPN client. The resulting prompt requires an asurite, the
+corresponding password, and a two factor authentication method (i.e.,
+<code>push</code>, <code>call</code>, <code>sms</code>, or a six-digit
+code provided by Duo). The last field may be labeled as
+<code>second password</code> on some Cisco clients. N.B., if you are on
+a Mac, some additional troubleshooting will be required (<a href="https://asurc.atlassian.net/wiki/spaces/RC/pages/1905262641/Troubleshooting+The+CiscoVPN#MacOS-Systems" class="external-link">fix</a>).</p>
+</div>
+<div class="section level4">
+<h4 id="second-in-your-preferred-browser-connect-to-supercomputer">Second, in your preferred browser, connect to supercomputer<a class="anchor" aria-label="anchor" href="#second-in-your-preferred-browser-connect-to-supercomputer"></a></h4>
+<p>The supercomputer’s <a href="https://sol.asu.edu" class="external-link">web portal</a>
+provides a consistent user interface across all major operating systems.
+This fact is leveraged by these lessons. To connect, go to <a href="https://sol.asu.edu" class="external-link">sol.asu.edu</a> in your preferred browser. If
+the VPN is required, the website will not load. Otherwise, you will be
+prompted to sign in as if signing into MyASU.</p>
+</div>
+<div class="section level4">
+<h4 id="launch-a-jupyter-lab-server">Launch a Jupyter Lab Server<a class="anchor" aria-label="anchor" href="#launch-a-jupyter-lab-server"></a></h4>
+<p>We will be running Python from a modern graphical interface provided
+by a Jupyter Lab server. To launch one:</p>
+<ol style="list-style-type: decimal"><li>From the gold navigation bar at the top of the supercomputer’s <a href="https://sol.asu.edu" class="external-link">web portal</a>, select,
+<code>Interactive Sessions</code> with your mouse.</li>
+<li>From the resulting drop down, select <code>Jupyter</code>.</li>
+<li>On the resulting form, select the</li>
+</ol><ul><li>
+<code>lightwork</code> partition,</li>
+<li>
+<code>public</code> ‘QOS’,</li>
+<li>
+<code>1</code> core,</li>
+<li>
+<code>4</code> GiB of memory, and submit the form.</li>
+</ul><ol start="4" style="list-style-type: decimal"><li>Your Jupyter Server should be ready within a minute. Select
+<code>Launch</code> on the resulting page.</li>
+</ol></div>
+<div class="section level4">
+<h4 id="obtain-lesson-materials">Obtain lesson materials<a class="anchor" aria-label="anchor" href="#obtain-lesson-materials"></a></h4>
+<p>The lesson materials will be already available in your
+supercomputer’s Desktop directory. If for whatever reason these are
+corrupted, re-obtain the materials by either: a. Copying the source
+lesson material from <span style="color:red">
+<code>/packages/public/sol-tutorials/python-comp-math</code> </span> or
+b. Copying the source lesson materials from the <span style="color:red">internet</span>.</p>
+<hr></div>
 </section><section><h2 class="section-heading" id="install-python">Install Python<a class="anchor" aria-label="anchor" href="#install-python"></a></h2>
 <hr class="half-width"><p>In this lesson, we will be using Python 3 with some of its most
 popular scientific libraries. Although one can install a plain-vanilla
@@ -560,7 +613,7 @@ instructions for various operating systems can be found on The
 Carpentries <a href="https://carpentries.github.io/workshop-template/install_instructions/#python" class="external-link">template
 website for workshops</a> and in <a href="https://docs.anaconda.com/anaconda/install" class="external-link">Anaconda
 documentation</a>.</p>
-</section><section><h2 class="section-heading" id="obtain-lesson-materials">Obtain lesson materials<a class="anchor" aria-label="anchor" href="#obtain-lesson-materials"></a></h2>
+</section><section><h2 class="section-heading" id="obtain-lesson-materials-1">Obtain lesson materials<a class="anchor" aria-label="anchor" href="#obtain-lesson-materials-1"></a></h2>
 <hr class="half-width"><ol style="list-style-type: decimal"><li>Download <a href="../data/python-novice-inflammation-data.zip">python-novice-inflammation-data.zip</a>
 and <a href="../files/code/python-novice-inflammation-code.zip">python-novice-inflammation-code.zip</a>.</li>
 <li>Create a folder called <code>swc-python</code> on your Desktop.</li>
@@ -587,7 +640,7 @@ ways:</p>
   Anaconda Navigator
   </h3>
 </button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler1" aria-labelledby="headingSpoiler1">
+<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
 <div class="accordion-body">
 <ol style="list-style-type: decimal"><li>Launch Anaconda Navigator. It might ask you if you’d like to send
 anonymized usage information to Anaconda developers: <img src="../fig/anaconda-navigator-first-launch.png" alt="Anaconda Navigator first launch" class="figure"> Make your choice and click “Ok,
@@ -612,7 +665,7 @@ selecting “Python 3”: <img src="../fig/jupyter-notebook-launch-notebook.png"
   Command line (Terminal)
   </h3>
 </button>
-<div id="collapseSpoiler6" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler6" aria-labelledby="headingSpoiler6">
+<div id="collapseSpoiler6" class="accordion-collapse collapse" aria-labelledby="headingSpoiler6" data-bs-parent="#accordionSpoiler6">
 <div class="accordion-body">
 <p>1. Navigate to the <code>data</code> directory:</p>
 <div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
@@ -623,7 +676,7 @@ selecting “Python 3”: <img src="../fig/jupyter-notebook-launch-notebook.png"
   Unix shell
   </h3>
 </button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler2" aria-labelledby="headingSpoiler2">
+<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
 <div class="accordion-body">
 <p>If you’re using a Unix shell application, such as Terminal app in
 macOS, Console or Terminal in Linux, or <a href="https://gitforwindows.org" class="external-link">Git Bash</a> on Windows, execute the
@@ -645,7 +698,7 @@ following command:</p>
   Command Prompt (Windows)
   </h3>
 </button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler3" aria-labelledby="headingSpoiler3">
+<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
 <div class="accordion-body">
 <p>On Windows, you can use its native Command Prompt program. The
 easiest way to start it up is pressing <kbd>Windows Logo
@@ -666,7 +719,7 @@ navigate to the <code>data</code> folder:</p>
   Unix shell
   </h3>
 </button>
-<div id="collapseSpoiler4" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler4" aria-labelledby="headingSpoiler4">
+<div id="collapseSpoiler4" class="accordion-collapse collapse" aria-labelledby="headingSpoiler4" data-bs-parent="#accordionSpoiler4">
 <div class="accordion-body">
 <div class="codewrapper sourceCode" id="cb3">
 <h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -685,7 +738,7 @@ navigate to the <code>data</code> folder:</p>
   Command Prompt (Windows)
   </h3>
 </button>
-<div id="collapseSpoiler5" class="accordion-collapse collapse" data-bs-parent="#accordionSpoiler5" aria-labelledby="headingSpoiler5">
+<div id="collapseSpoiler5" class="accordion-collapse collapse" aria-labelledby="headingSpoiler5" data-bs-parent="#accordionSpoiler5">
 <div class="accordion-body">
 <pre class="source"><code>python -m notebook</code></pre>
 </div>
