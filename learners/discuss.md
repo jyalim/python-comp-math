@@ -6,11 +6,11 @@ title: Discussion
 
 1. Fail early, fail often.
 2. Always initialize from data.
-3. Know what it's supposed to do.
+3. Know what it is supposed to do.
 4. Make it fail every time.
 5. Make it fail fast.
 6. Change one thing at a time, for a reason.
-7. Keep track of what we've done.
+7. Keep track of what we have done.
 8. Be humble.
 9. Test the simple things first.
 
@@ -21,7 +21,7 @@ a week of hard work can sometimes save you an hour of thought.
 
 Let's take a closer look at what happens when we call `fahr_to_celsius(32.0)`.
 To make things clearer,
-we'll start by putting the initial value 32.0 in a variable
+we will start by putting the initial value `32.0` in a variable
 and store the final result in one as well:
 
 ```python
@@ -34,17 +34,16 @@ The diagram below shows what memory looks like after the first line has been exe
 ![](fig/python-call-stack-01.svg){alt='Call Stack (Initial State)'}
 
 When we call `fahr_to_celsius`,
-Python *doesn't* create the variable `temp` right away.
-Instead,
-it creates something called a [stack frame](../learners/reference.md#stack-frame)
+Python *does not* create the variable `temp` right away.
+Instead, it creates something called a 
+[stack frame](../learners/reference.md#stack-frame)
 to keep track of the variables defined by `fahr_to_kelvin`.
-Initially,
-this stack frame only holds the value of `temp`:
+Initially, this stack frame only holds the value of `temp`:
 
 ![](fig/python-call-stack-02.svg){alt='Call Stack Immediately After First Function Call'}
 
-When we call `fahr_to_kelvin` inside `fahr_to_celsius`,
-Python creates another stack frame to hold `fahr_to_kelvin`'s variables:
+When we call `fahr_to_kelvin` inside `fahr_to_celsius`, Python creates
+another stack frame to hold `fahr_to_kelvin`'s variables:
 
 ![](fig/python-call-stack-03.svg){alt='Call Stack During First Nested Function Call'}
 
@@ -307,7 +306,7 @@ from ipythonblocks import show_color
 show_color(214, 90, 127)
 ```
 
-![](fig/ipythonblocks_show_color_example.png)
+![](fig/ipythonblocks_show_color_example.png){alt='alt text'}
 
 It also provides a table of standard colors:
 
