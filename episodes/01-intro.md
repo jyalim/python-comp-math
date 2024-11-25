@@ -116,7 +116,15 @@ finite rational number system is non-associative and non-commutative.
 E.g., letting $\varepsilon=2^{-52}$, $2+\varepsilon+\varepsilon \neq
 \varepsilon + \varepsilon + 2$.
 
-![](/fig/floating-point-rounding-figure.png){alt='Figure illustrating
+![
+Figure illustrating
+rounding errors for different values between 1 and 1 plus machine
+epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up
+to the nearest computer floating-point number, $1+\varepsilon$; else
+values will be rounded down to $1$. When computing sums,
+higher-precision **registers** are used which then follow rounding rules
+when truncating to the lower precision floating-point.
+](fig/floating-point-rounding-figure.png){alt='Figure illustrating
 rounding errors for different values between 1 and 1 plus machine
 epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up
 to the nearest computer floating-point number, $1+\varepsilon$; else
