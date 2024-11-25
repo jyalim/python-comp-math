@@ -11,13 +11,13 @@
 carpentry: 'swc'
 
 # Overall title for pages.
-title: 'Programming with Python'
+title: 'Programming with Python for Computational Mathematics'
 
 # Date the lesson was created (YYYY-MM-DD, this is empty by default)
-created: '2014-11-25'
+created: '2024-11-22'
 
 # Comma-separated list of keywords for the lesson
-keywords: 'software, data, lesson, The Carpentries'
+keywords: 'software, computational mathematics, lesson, The Carpentries'
 
 # Life cycle stage of the lesson
 # possible values: pre-alpha, alpha, beta, stable
@@ -27,13 +27,13 @@ life_cycle: 'stable'
 license: 'CC-BY 4.0'
 
 # Link to the source repository for this lesson
-source: 'https://github.com/swcarpentry/python-novice-inflammation'
+source: 'https://github.com/jyalim/python-comp-math'
 
 # Default branch of your lesson
 branch: 'main'
 
 # Who to contact if there are any issues
-contact: 'team@carpentries.org'
+contact: 'yalim@asu.edu'
 
 # Navigation ------------------------------------------------
 #
@@ -87,6 +87,15 @@ profiles:
 # sandpaper and varnish versions) should live
 
 
-url: 'https://swcarpentry.github.io/python-novice-inflammation'
-analytics: carpentries
+url: 'https://jyalim.github.io/python-comp-math'
+analytics: |
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-S0VD77TNYS"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  
+    gtag('config', 'G-S0VD77TNYS');
+  </script>
 lang: en
