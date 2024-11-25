@@ -527,7 +527,7 @@ instance, between 1/2 and 1, 1 and 2, or <span class="math inline">\(2^{100}\)</
 number system is non-associative and non-commutative. E.g., letting
 <span class="math inline">\(\varepsilon=2^{-52}\)</span>, <span class="math inline">\(2+\varepsilon+\varepsilon \neq
 \varepsilon + \varepsilon + 2\)</span>.</p>
-<figure><img src="/fig/floating-point-rounding-figure.svg" alt="Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision **registers** are used which then follow rounding rules when truncating to the lower precision floating-point." class="figure mx-auto d-block"></figure><p>In a quirk of Python, base <code>int</code> integers allow arbitrary
+<figure><img src="/fig/floating-point-rounding-figure.png" alt="Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision **registers** are used which then follow rounding rules when truncating to the lower precision floating-point." class="figure mx-auto d-block"></figure><p>In a quirk of Python, base <code>int</code> integers allow arbitrary
 precision.</p>
 </div>
 </div>
