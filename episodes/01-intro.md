@@ -111,10 +111,18 @@ bit stores a sign, 11 bits store an *exponent*, and the remaining 52
 bits store the *significand* or *fraction*. This *double precision*
 system results in only $2^{52}-1$ (roughly 4.5 quintillion) numbers
 exclusively between every representable power of 2, for instance,
-between 1/2 and 1, or between 1 and 2. The resulting finite rational
-number system is non-associative and non-commutative.  E.g., letting
-$\varepsilon=2^{-52}$, $2+\varepsilon+\varepsilon \neq \varepsilon +
-\varepsilon + 2$.
+between 1/2 and 1, 1 and 2, or $2^{100}$ and $2^{101}$. The resulting
+finite rational number system is non-associative and non-commutative.
+E.g., letting $\varepsilon=2^{-52}$, $2+\varepsilon+\varepsilon \neq
+\varepsilon + \varepsilon + 2$.
+
+![](/fig/floating-point-rounding-figure.svg){alt='Figure illustrating
+rounding errors for different values between 1 and 1 plus machine
+epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up
+to the nearest computer floating-point number, $1+\varepsilon$; else
+values will be rounded down to $1$. When computing sums,
+higher-precision **registers** are used which then follow rounding rules
+when truncating to the lower precision floating-point.'}
 
 In a quirk of Python, base `int` integers allow arbitrary precision. 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
