@@ -112,9 +112,9 @@ bits store the *significand* or *fraction*. This *double precision*
 system results in only $2^{52}-1$ (roughly 4.5 quintillion) numbers
 exclusively between every representable power of 2, for instance,
 between 1/2 and 1, 1 and 2, or $2^{100}$ and $2^{101}$. The resulting
-finite rational number system is non-associative and non-commutative.
-E.g., letting $\varepsilon=2^{-52}$, $2+\varepsilon+\varepsilon \neq
-\varepsilon + \varepsilon + 2$.
+finite rational number system is non-associative.
+E.g., letting $\varepsilon=2^{-52}$, $(2+\varepsilon)+\varepsilon \neq
+2+(\varepsilon + \varepsilon)$.
 
 ![
 Figure illustrating
