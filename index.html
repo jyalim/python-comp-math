@@ -199,12 +199,6 @@
       <div class="accordion-body">
         <ul><li><a href="#overview">Overview</a></li>
 <li><a href="#connect-to-the-supercomputer">Connect to the supercomputer</a></li>
-<li><a href="#install-python">Install Python</a></li>
-<li><a href="#obtain-lesson-materials-1">Obtain lesson materials</a></li>
-<li><a href="#launch-python-interface">Launch Python interface</a></li>
-<li><a href="#option-a-jupyter-notebook">Option A: Jupyter Notebook</a></li>
-<li><a href="#option-b-ipython-interpreter">Option B: IPython interpreter</a></li>
-<li><a href="#option-c-plain-vanilla-python-interpreter">Option C: plain-vanilla Python interpreter</a></li>
         </ul></div><!--/div.accordion-body-->
     </div><!--/div.accordion-collapse-->
 
@@ -435,12 +429,12 @@ interpreter.</p>
 
 
       <section id="setup"><section><h2 class="section-heading" id="overview">Overview<a class="anchor" aria-label="anchor" href="#overview"></a></h2>
-<hr class="half-width"><p>This lesson is designed to be run on the Sol supercomputer, within a
-Jupyter Lab server. This is to ensure a modern and consistent
-environment among attendees. Instructions are given below on how to
-connect to the supercomputer and get started. All of the software and
-data used in this lesson are freely available online, and instructions
-on how to obtain them are provided within the lesson.</p>
+<hr class="half-width"><p>This lesson is designed to be run on the Sol supercomputer with a
+Jupyter Lab server. This ensures a modern and consistent environment
+among attendees. Instructions are given below on how to connect to the
+supercomputer and get started. All of the software and data used in this
+lesson are freely available online, and instructions on how to obtain
+them are provided within the lesson.</p>
 </section><section><h2 class="section-heading" id="connect-to-the-supercomputer">Connect to the supercomputer<a class="anchor" aria-label="anchor" href="#connect-to-the-supercomputer"></a></h2>
 <hr class="half-width"><div class="section level4">
 <h4 id="first-if-off-campus-connect-to-vpn">First, if off campus, connect to VPN<a class="anchor" aria-label="anchor" href="#first-if-off-campus-connect-to-vpn"></a></h4>
@@ -484,6 +478,30 @@ and submit the form.</li>
 <code>Launch</code> on the resulting page.</li>
 </ol></div>
 <div class="section level4">
+<h4 id="jupyter-lab-quickstart">Jupyter Lab quickstart<a class="anchor" aria-label="anchor" href="#jupyter-lab-quickstart"></a></h4>
+<p>When you start Jupyter for the first time, you’ll be greeted with a
+<strong>file system viewer</strong> on the left-hand side of the screen
+and a <strong>launcher</strong> on the right-hand side. To get to the
+lesson materials, use the file system viewer: double-click the
+<code>Desktop</code> directory then the <code>python-comp-math</code>
+directory. Open a notebook called, <code>00-quickstart.ipynb</code>. To
+evaluate the first and only <strong>cell</strong> in the new view of the
+file, use either the “play”-button icon in the menu bar or use the
+keyboard shortcut <kbd>shift</kbd>+<kbd>enter</kbd>.</p>
+<p>The default cell type is called <code>Code</code> and thus typical
+Jupyter notebook cells evaluate Python code. However, Jupyter may use
+arbitrary backends to run notebook cells which has made it a popular
+development environment for remote systems. This lesson will exclusively
+use Python <code>Code</code> cells, but a second common cell type,
+<code>Markdown</code>, is useful for providing richly formatted content
+within a notebook. Both cell types are demonstrated in the demo
+notebook, <code>00-quickstart.ipynb</code>.</p>
+<p>Finally, sometimes it is helpful to clear the evaluated content in a
+Jupyter notebook. You can do this at any time with
+<code>Restart Kernel and clear all outputs</code> in the upper menu bar
+under <code>Kernel</code>.</p>
+</div>
+<div class="section level4">
 <h4 id="obtain-lesson-materials">Obtain lesson materials<a class="anchor" aria-label="anchor" href="#obtain-lesson-materials"></a></h4>
 <p>The lesson materials will be already available in your
 supercomputer’s Desktop directory. If for whatever reason these are
@@ -492,170 +510,6 @@ a. Copying the source lesson material from
 <code>/packages/public/sol-tutorials/python-comp-math</code> or b.
 Copying the source lesson materials from the internet. </span></p>
 <hr></div>
-</section><section><h2 class="section-heading" id="install-python">Install Python<a class="anchor" aria-label="anchor" href="#install-python"></a></h2>
-<hr class="half-width"><p>In this lesson, we will be using Python 3 with some of its most
-popular scientific libraries. Although one can install a plain-vanilla
-Python and all required libraries by hand, we recommend installing <a href="https://www.anaconda.com/" class="external-link">Anaconda</a>, a Python distribution
-that comes with everything we need for the lesson. Detailed installation
-instructions for various operating systems can be found on The
-Carpentries <a href="https://carpentries.github.io/workshop-template/install_instructions/#python" class="external-link">template
-website for workshops</a> and in <a href="https://docs.anaconda.com/anaconda/install" class="external-link">Anaconda
-documentation</a>.</p>
-</section><section><h2 class="section-heading" id="obtain-lesson-materials-1">Obtain lesson materials<a class="anchor" aria-label="anchor" href="#obtain-lesson-materials-1"></a></h2>
-<hr class="half-width"><ol style="list-style-type: decimal"><li>Download <a href="data/python-novice-inflammation-data.zip">python-novice-inflammation-data.zip</a>
-and <a href="files/code/python-novice-inflammation-code.zip">python-novice-inflammation-code.zip</a>.</li>
-<li>Create a folder called <code>swc-python</code> on your Desktop.</li>
-<li>Move downloaded files to <code>swc-python</code>.</li>
-<li>Unzip the files.</li>
-</ol><p>You should see two folders called <code>data</code> and
-<code>code</code> in the <code>swc-python</code> directory on your
-Desktop.</p>
-</section><section><h2 class="section-heading" id="launch-python-interface">Launch Python interface<a class="anchor" aria-label="anchor" href="#launch-python-interface"></a></h2>
-<hr class="half-width"><p>To start working with Python, we need to launch a program that will
-interpret and execute our Python commands. Below we list several
-options. If you don’t have a preference, proceed with the top option in
-the list that is available on your machine. Otherwise, you may use any
-interface you like.</p>
-</section><section><h2 class="section-heading" id="option-a-jupyter-notebook">Option A: Jupyter Notebook<a class="anchor" aria-label="anchor" href="#option-a-jupyter-notebook"></a></h2>
-<hr class="half-width"><p>A Jupyter Notebook provides a browser-based interface for working
-with Python. If you installed Anaconda, you can launch a notebook in two
-ways:</p>
-<div id="accordionSpoiler1" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler1" aria-expanded="false" aria-controls="collapseSpoiler1">
-  <h3 class="accordion-header" id="headingSpoiler1">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Anaconda Navigator
-  </h3>
-</button>
-<div id="collapseSpoiler1" class="accordion-collapse collapse" aria-labelledby="headingSpoiler1" data-bs-parent="#accordionSpoiler1">
-<div class="accordion-body">
-<ol style="list-style-type: decimal"><li>Launch Anaconda Navigator. It might ask you if you’d like to send
-anonymized usage information to Anaconda developers: <img src="fig/anaconda-navigator-first-launch.png" alt="Anaconda Navigator first launch" class="figure"> Make your choice and click “Ok,
-and don’t show again” button.</li>
-<li>Find the “Notebook” tab and click on the “Launch” button: <img src="fig/anaconda-navigator-notebook-launch.png" alt="Anaconda Navigator Notebook launch" class="figure"> Anaconda will open a new
-browser window or tab with a Notebook Dashboard showing you the contents
-of your Home (or User) folder.</li>
-<li>Navigate to the <code>data</code> directory by clicking on the
-directory names leading to it: <code>Desktop</code>,
-<code>swc-python</code>, then <code>data</code>: <img src="fig/jupyter-notebook-data-directory.png" alt="Anaconda Navigator Notebook directory" class="figure"></li>
-<li>Launch the notebook by clicking on the “New” button and then
-selecting “Python 3”: <img src="fig/jupyter-notebook-launch-notebook.png" alt="Anaconda Navigator Notebook directory" class="figure"></li>
-</ol></div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler6" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler6" aria-expanded="false" aria-controls="collapseSpoiler6">
-  <h3 class="accordion-header" id="headingSpoiler6">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Command line (Terminal)
-  </h3>
-</button>
-<div id="collapseSpoiler6" class="accordion-collapse collapse" aria-labelledby="headingSpoiler6" data-bs-parent="#accordionSpoiler6">
-<div class="accordion-body">
-<p>1. Navigate to the <code>data</code> directory:</p>
-<div id="accordionSpoiler2" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler2" aria-expanded="false" aria-controls="collapseSpoiler2">
-  <h3 class="accordion-header" id="headingSpoiler2">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Unix shell
-  </h3>
-</button>
-<div id="collapseSpoiler2" class="accordion-collapse collapse" aria-labelledby="headingSpoiler2" data-bs-parent="#accordionSpoiler2">
-<div class="accordion-body">
-<p>If you’re using a Unix shell application, such as Terminal app in
-macOS, Console or Terminal in Linux, or <a href="https://gitforwindows.org" class="external-link">Git Bash</a> on Windows, execute the
-following command:</p>
-<div class="codewrapper sourceCode" id="cb1">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="bu">cd</span> ~/Desktop/swc-python/data</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler3" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler3" aria-expanded="false" aria-controls="collapseSpoiler3">
-  <h3 class="accordion-header" id="headingSpoiler3">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Command Prompt (Windows)
-  </h3>
-</button>
-<div id="collapseSpoiler3" class="accordion-collapse collapse" aria-labelledby="headingSpoiler3" data-bs-parent="#accordionSpoiler3">
-<div class="accordion-body">
-<p>On Windows, you can use its native Command Prompt program. The
-easiest way to start it up is pressing <kbd>Windows Logo
-Key</kbd>+<kbd>R</kbd>, entering <code>cmd</code>, and hitting
-<kbd>Return</kbd>. In the Command Prompt, use the following command to
-navigate to the <code>data</code> folder:</p>
-<pre class="source"><code>cd /D %userprofile%\Desktop\swc-python\data</code></pre>
-</div>
-</div>
-</div>
-</div>
-<p>2. Start Jupyter server</p>
-<div id="accordionSpoiler4" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler4" aria-expanded="false" aria-controls="collapseSpoiler4">
-  <h3 class="accordion-header" id="headingSpoiler4">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Unix shell
-  </h3>
-</button>
-<div id="collapseSpoiler4" class="accordion-collapse collapse" aria-labelledby="headingSpoiler4" data-bs-parent="#accordionSpoiler4">
-<div class="accordion-body">
-<div class="codewrapper sourceCode" id="cb3">
-<h3 class="code-label">BASH<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
-</h3>
-<pre class="sourceCode bash" tabindex="0"><code class="sourceCode bash"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="ex">jupyter</span> notebook</span></code></pre>
-</div>
-</div>
-</div>
-</div>
-</div>
-<div id="accordionSpoiler5" class="accordion spoiler-accordion accordion-flush">
-<div class="accordion-item">
-<button class="accordion-button spoiler-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSpoiler5" aria-expanded="false" aria-controls="collapseSpoiler5">
-  <h3 class="accordion-header" id="headingSpoiler5">
-  <div class="note-square"><i aria-hidden="true" class="callout-icon" data-feather="eye"></i></div>
-  Command Prompt (Windows)
-  </h3>
-</button>
-<div id="collapseSpoiler5" class="accordion-collapse collapse" aria-labelledby="headingSpoiler5" data-bs-parent="#accordionSpoiler5">
-<div class="accordion-body">
-<pre class="source"><code>python -m notebook</code></pre>
-</div>
-</div>
-</div>
-</div>
-<p>3. Launch the notebook by clicking on the “New” button on the right
-and selecting “Python 3” from the drop-down menu: <img src="fig/jupyter-notebook-launch-notebook2.png" alt="Anaconda Navigator Notebook directory" class="figure"></p>
-</div>
-</div>
-</div>
-</div>
-<p>  <!-- vertical spacer --></p>
-</section><section><h2 class="section-heading" id="option-b-ipython-interpreter">Option B: IPython interpreter<a class="anchor" aria-label="anchor" href="#option-b-ipython-interpreter"></a></h2>
-<hr class="half-width"><p>IPython is an alternative solution situated somewhere in between the
-plain-vanilla Python interpreter and Jupyter Notebook. It provides an
-interactive command-line based interpreter with various convenience
-features and commands. You should have IPython on your system if you
-installed <a href="https://carpentries.github.io/workshop-template/install_instructions/#python" class="external-link">Anaconda</a>.</p>
-<p>To start using IPython, execute:</p>
-<pre class="source"><code><span><span class="va">ipython</span></span></code></pre>
-<p>  <!-- vertical spacer --></p>
-</section><section><h2 class="section-heading" id="option-c-plain-vanilla-python-interpreter">Option C: plain-vanilla Python interpreter<a class="anchor" aria-label="anchor" href="#option-c-plain-vanilla-python-interpreter"></a></h2>
-<hr class="half-width"><p>To launch a plain-vanilla Python interpreter, execute:</p>
-<pre class="source"><code><span><span class="va">python</span></span></code></pre>
-<p>If you are using <a href="https://gitforwindows.org" class="external-link">Git Bash on
-Windows</a>, you have to call Python <em>via</em>
-<code>winpty</code>:</p>
-<pre class="source"><code>winpty python</code></pre>
 </section></section></main><nav class="bottom-pagination mx-md-4" aria-label="Next Chapter"><!-- content for small screens --><div class="d-block d-sm-block d-md-none">
         <a class="chapter-link float-end" href="01-intro.html">Next<i aria-hidden="true" class="small-arrow" data-feather="arrow-right"></i></a>
       </div>
