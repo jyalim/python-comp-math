@@ -168,7 +168,7 @@ language provides us with several built-in
 To display information to the screen, we use the `print` function:
 
 ```python
-print(weight_lb)
+print(patient_weight_lb)
 print(patient_id)
 ```
 

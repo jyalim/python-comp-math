@@ -4,20 +4,20 @@ title: Setup
 
 ## Overview
 
-This lesson is designed to be run on the Sol supercomputer, within a
-Jupyter Lab server. This is to ensure a modern and consistent
-environment among attendees. Instructions are given below on how to
-connect to the supercomputer and get started. 
-All of the software and data used in this lesson are freely available online,
-and instructions on how to obtain them are provided within the lesson.
+This lesson is designed to be run on the Sol supercomputer with a
+Jupyter Lab server. This ensures a modern and consistent environment
+among attendees. Instructions are given below on how to connect to the
+supercomputer and get started.  All of the software and data used in
+this lesson are freely available online, and instructions on how to
+obtain them are provided within the lesson.
 
 ## Connect to the supercomputer
 
 #### First, if off campus, connect to VPN
 
 Attendees that are off campus will need to first connect to [ASU's
-virtual private network (VPN)][sslvpn]. If not already installed, 
-use the previous link, sign in as if signing into MyASU, and follow the
+virtual private network (VPN)][sslvpn]. If not already installed, use
+the previous link, sign in as if signing into MyASU, and follow the
 download and installation instructions. To sign into the VPN, connect to
 [sslvpn.asu.edu][sslvpn] with the now installed Cisco VPN client. The
 resulting prompt requires an asurite, the corresponding password, and a
@@ -39,9 +39,9 @@ Otherwise, you will be prompted to sign in as if signing into MyASU.
 We will be running Python from a modern graphical interface provided by
 a Jupyter Lab server. To launch one:
 
-1. From the gold navigation bar at the top of the 
-supercomputer's [web portal][web-portal], select, `Interactive Sessions`
-with your mouse.
+1. From the gold navigation bar at the top of the supercomputer's 
+[web portal][web-portal], select, `Interactive Sessions` with your
+mouse.
 2. From the resulting drop down, select `Jupyter`.
 3. On the resulting form, select the 
 * `lightwork` partition, 
@@ -51,6 +51,29 @@ with your mouse.
 and submit the form.
 4. Your Jupyter Server should be ready within a minute. Select `Launch`
    on the resulting page.
+
+#### Jupyter Lab quickstart
+
+When you start Jupyter for the first time, you'll be greeted with a 
+**file system viewer** on the left-hand side of the screen and a
+**launcher** on the right-hand side. To get to the lesson materials, use
+the file system viewer: double-click the `Desktop` directory then the
+`python-comp-math` directory. Open a notebook called,
+`00-quickstart.ipynb`. To evaluate the first and only **cell** in the
+new view of the file, use either the "play"-button icon in the menu bar
+or use the keyboard shortcut <kbd>shift</kbd>+<kbd>enter</kbd>.
+
+The default cell type is called `Code` and thus typical Jupyter notebook
+cells evaluate Python code. However, Jupyter may use arbitrary backends
+to run notebook cells which has made it a popular development
+environment for remote systems. This lesson will exclusively use Python
+`Code` cells, but a second common cell type, `Markdown`, is useful for
+providing richly formatted content within a notebook. Both cell types
+are demonstrated in the demo notebook, `00-quickstart.ipynb`.
+
+Finally, sometimes it is helpful to clear the evaluated content in a
+Jupyter notebook. You can do this at any time with `Restart Kernel and
+clear all outputs` in the upper menu bar under `Kernel`.
 
 #### Obtain lesson materials
 
@@ -66,160 +89,7 @@ b. Copying the source lesson materials from the internet.
 
 ------------------------------------------------------------------------
 
-## Install Python
-
-In this lesson, we will be using Python 3 with some of its most popular scientific libraries.
-Although one can install a plain-vanilla Python and all required libraries by hand,
-we recommend installing [Anaconda][anaconda-website],
-a Python distribution that comes with everything we need for the lesson.
-Detailed installation instructions for various operating systems can be found
-on The Carpentries [template website for workshops][anaconda-instructions]
-and in [Anaconda documentation][anaconda-install].
-
-## Obtain lesson materials
-
-1. Download [python-novice-inflammation-data.zip][zipfile1]
-  and [python-novice-inflammation-code.zip][zipfile2].
-2. Create a folder called `swc-python` on your Desktop.
-3. Move downloaded files to `swc-python`.
-4. Unzip the files.
-
-You should see two folders called `data` and `code` in the `swc-python` directory on your
-Desktop.
-
-## Launch Python interface
-
-To start working with Python, we need to launch a program that will interpret and execute our
-Python commands. Below we list several options. If you don't have a preference, proceed with the
-top option in the list that is available on your machine. Otherwise, you may use any interface
-you like.
-
-## Option A: Jupyter Notebook
-
-A Jupyter Notebook provides a browser-based interface for working with Python.
-If you installed Anaconda, you can launch a notebook in two ways:
-
-::::::::::::::::: spoiler
-
-## Anaconda Navigator
-
-1. Launch Anaconda Navigator.
-  It might ask you if you'd like to send anonymized usage information to Anaconda developers:
-  ![](fig/anaconda-navigator-first-launch.png){alt='Anaconda Navigator first launch'}
-  Make your choice and click "Ok, and don't show again" button.
-2. Find the "Notebook" tab and click on the "Launch" button:
-  ![](fig/anaconda-navigator-notebook-launch.png){alt='Anaconda Navigator Notebook launch'}
-  Anaconda will open a new browser window or tab with a Notebook Dashboard showing you the
-  contents of your Home (or User) folder.
-3. Navigate to the `data` directory by clicking on the directory names leading to it:
-  `Desktop`, `swc-python`, then `data`:
-  ![](fig/jupyter-notebook-data-directory.png){alt='Anaconda Navigator Notebook directory'}
-4. Launch the notebook by clicking on the "New" button and then selecting "Python 3":
-  ![](fig/jupyter-notebook-launch-notebook.png){alt='Anaconda Navigator Notebook directory'}
-
-:::::::::::::::::::::::::
-
-
-::::::::::::::::: spoiler
-
-## Command line (Terminal)
-
-1\. Navigate to the `data` directory:
-
-::::::::::::::::: spoiler
-
-## Unix shell
-
-If you're using a Unix shell application, such as Terminal app in macOS, Console or Terminal
-in Linux, or [Git Bash][gitbash] on Windows, execute the following command:
-
-```bash
-cd ~/Desktop/swc-python/data
-```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::: spoiler
-
-## Command Prompt (Windows)
-
-On Windows, you can use its native Command Prompt program.  The easiest way to start it up is
-pressing <kbd>Windows Logo Key</kbd>\+<kbd>R</kbd>, entering `cmd`, and hitting
-<kbd>Return</kbd>. In the Command Prompt, use the following command to navigate to
-the `data` folder:
-
-```source
-cd /D %userprofile%\Desktop\swc-python\data
-```
-
-:::::::::::::::::::::::::
-
-2\. Start Jupyter server
-
-::::::::::::::::: spoiler
-
-## Unix shell
-
-```bash
-jupyter notebook
-```
-
-:::::::::::::::::::::::::
-
-
-::::::::::::::::: spoiler
-
-## Command Prompt (Windows)
-
-```source
-python -m notebook
-```
-
-:::::::::::::::::::::::::
-
-3\. Launch the notebook by clicking on the "New" button on the right and selecting "Python 3"
-from the drop-down menu:
-![](fig/jupyter-notebook-launch-notebook2.png){alt='Anaconda Navigator Notebook directory'}
-
-:::::::::::::::::::::::::
-
-  <!-- vertical spacer -->
-
-## Option B: IPython interpreter
-
-IPython is an alternative solution situated somewhere in between the plain-vanilla Python
-interpreter and Jupyter Notebook. It provides an interactive command-line based interpreter with
-various convenience features and commands.  You should have IPython on your system if you installed
-[Anaconda][anaconda-instructions].
-
-To start using IPython, execute:
-
-```source
-ipython
-```
-
-  <!-- vertical spacer -->
-
-## Option C: plain-vanilla Python interpreter
-
-To launch a plain-vanilla Python interpreter, execute:
-
-```source
-python
-```
-
-If you are using [Git Bash on Windows][gitbash], you have to call Python *via* `winpty`:
-
-```source
-winpty python
-```
-
-[anaconda-website]: https://www.anaconda.com/
-[anaconda-instructions]: https://carpentries.github.io/workshop-template/install_instructions/#python
-[anaconda-install]: https://docs.anaconda.com/anaconda/install
-[zipfile1]: data/python-novice-inflammation-data.zip
 [zipfile2]: ../episodes/files/code/python-novice-inflammation-code.zip
-[gitbash]: https://gitforwindows.org
 [sslvpn]: https://sslvpn.asu.edu
 [sslvpn-mac-fix]: https://asurc.atlassian.net/wiki/spaces/RC/pages/1905262641/Troubleshooting+The+CiscoVPN#MacOS-Systems
 [web-portal]: https://sol.asu.edu
