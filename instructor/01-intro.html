@@ -526,9 +526,8 @@ bit stores a sign, 11 bits store an <em>exponent</em>, and the remaining
 <em>double precision</em> system results in only <span class="math inline">\(2^{52}-1\)</span> (roughly 4.5 quintillion)
 numbers exclusively between every representable power of 2, for
 instance, between 1/2 and 1, 1 and 2, or <span class="math inline">\(2^{100}\)</span> and <span class="math inline">\(2^{101}\)</span>. The resulting finite rational
-number system is non-associative and non-commutative. E.g., letting
-<span class="math inline">\(\varepsilon=2^{-52}\)</span>, <span class="math inline">\(2+\varepsilon+\varepsilon \neq
-\varepsilon + \varepsilon + 2\)</span>.</p>
+number system is non-associative. E.g., letting <span class="math inline">\(\varepsilon=2^{-52}\)</span>, <span class="math inline">\((2+\varepsilon)+\varepsilon \neq
+2+(\varepsilon + \varepsilon)\)</span>.</p>
 <figure><img src="../fig/floating-point-rounding-figure.png" alt="Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision **registers** are used which then follow rounding rules when truncating to the lower precision floating-point." class="figure mx-auto d-block"><div class="figcaption">Figure illustrating rounding errors for
 different values between 1 and 1 plus machine epsilon. Values in <span class="math inline">\([1+\varepsilon/2,1+\varepsilon]\)</span> will be
 rounded up to the nearest computer floating-point number, <span class="math inline">\(1+\varepsilon\)</span>; else values will be
