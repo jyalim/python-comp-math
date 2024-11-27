@@ -238,7 +238,7 @@
 <div class="accordion accordion-flush" id="accordionFlush2">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading2">
-        <a href="01-intro.html">1. Python Fundamentals</a>
+        <a href="01-intro.html">1. Python Basics</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -250,7 +250,7 @@
 <div class="accordion accordion-flush" id="accordionFlush3">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading3">
-        <a href="02-numpy.html">2. Analyzing Patient Data</a>
+        <a href="02-basic-types.html">2. Basic Python Types and Data Structures</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -262,7 +262,7 @@
 <div class="accordion accordion-flush" id="accordionFlush4">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading4">
-        <a href="03-matplotlib.html">3. Visualizing Tabular Data</a>
+        <a href="03-loops.html">3. Repeating Actions with Loops</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -274,7 +274,7 @@
 <div class="accordion accordion-flush" id="accordionFlush5">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading5">
-        <a href="04-lists.html">4. Storing Multiple Values in Lists</a>
+        <a href="04-cond.html">4. Making Choices</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -286,7 +286,7 @@
 <div class="accordion accordion-flush" id="accordionFlush6">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading6">
-        <a href="05-loop.html">5. Repeating Actions with Loops</a>
+        <a href="05-numpy.html">5. Analyzing Patient Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -298,7 +298,7 @@
 <div class="accordion accordion-flush" id="accordionFlush7">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading7">
-        <a href="06-files.html">6. Analyzing Data from Multiple Files</a>
+        <a href="06-plt.html">6. Visualizing Tabular Data</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -310,7 +310,7 @@
 <div class="accordion accordion-flush" id="accordionFlush8">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading8">
-        <a href="07-cond.html">7. Making Choices</a>
+        <a href="07-func.html">7. Creating Functions</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -322,7 +322,7 @@
 <div class="accordion accordion-flush" id="accordionFlush9">
   <div class="accordion-item">
     <div class="accordion-header" id="flush-heading9">
-        <a href="08-func.html">8. Creating Functions</a>
+        <a href="08-files.html">8. Analyzing Data from Multiple Files</a>
     </div>
 <!--/div.accordion-header-->
 
@@ -437,16 +437,16 @@
     <main id="main-content" class="main-content"><div class="container lesson-content">
         
         
-<section id="01-intro"><h2 class="section-heading"><a href="01-intro.html">Python Fundamentals</a></h2>
+<section id="01-intro"><h2 class="section-heading"><a href="01-intro.html">Python Basics</a></h2>
 <hr class="half-width">
 <h3 id="01-intro-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision **registers** are used which then follow rounding rules when truncating to the lower precision floating-point.’</p>
-<figure><img src="../fig/floating-point-rounding-figure.png" alt="Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision **registers** are used which then follow rounding rules when truncating to the lower precision floating-point." class="figure mx-auto d-block"><div class="figcaption">Figure illustrating rounding errors for
+<p aria-hidden="true">Image 1 of 1: ‘Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision ***registers*** are used which then follow rounding rules when truncating to the lower precision floating-point.’</p>
+<figure><img src="../fig/floating-point-rounding-figure.png" alt="Figure illustrating rounding errors for different values between 1 and 1 plus machine epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up to the nearest computer floating-point number, $1+\varepsilon$; else values will be rounded down to $1$. When computing sums, higher-precision ***registers*** are used which then follow rounding rules when truncating to the lower precision floating-point." class="figure mx-auto d-block"><div class="figcaption">Figure illustrating rounding errors for
 different values between 1 and 1 plus machine epsilon. Values in <span class="math inline">\([1+\varepsilon/2,1+\varepsilon]\)</span> will be
 rounded up to the nearest computer floating-point number, <span class="math inline">\(1+\varepsilon\)</span>; else values will be
 rounded down to <span class="math inline">\(1\)</span>. When computing
-sums, higher-precision <strong>registers</strong> are used which then
-follow rounding rules when truncating to the lower precision
+sums, higher-precision <strong><em>registers</em></strong> are used
+which then follow rounding rules when truncating to the lower precision
 floating-point.</div>
 </figure><hr>
 <h3 id="01-intro-figure-2">Figure 2</h3>
@@ -457,71 +457,26 @@ floating-point.</div>
 <figure><img src="../fig/python-sticky-note-variables-02.svg" alt="Value of 65.0 with weight_kg label stuck on it, and value of 143.0 with weight_lb label stuck on it" class="figure mx-auto d-block"></figure><hr>
 <h3 id="01-intro-figure-4">Figure 4</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Value of 100.0 with label weight_kg stuck on it, and value of 143.0 with label weight_lbstuck on it’</p>
-<figure><img src="../fig/python-sticky-note-variables-03.svg" alt="Value of 100.0 with label weight_kg stuck on it, and value of 143.0 with label weight_lbstuck on it" class="figure mx-auto d-block"></figure><hr></section><section id="02-numpy"><h2 class="section-heading"><a href="02-numpy.html">Analyzing Patient Data</a></h2>
+<figure><img src="../fig/python-sticky-note-variables-03.svg" alt="Value of 100.0 with label weight_kg stuck on it, and value of 143.0 with label weight_lbstuck on it" class="figure mx-auto d-block"></figure><hr></section><section id="02-basic-types"><h2 class="section-heading"><a href="02-basic-types.html">Basic Python Types and Data Structures</a></h2>
 <hr class="half-width">
-<h3 id="02-numpy-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘'data' is a 3 by 3 numpy array containing row 0: ['A', 'B', 'C'], row 1: ['D', 'E', 'F'], androw 2: ['G', 'H', 'I']. Starting in the upper left hand corner, data[0, 0] = 'A', data[0, 1] = 'B',data[0, 2] = 'C', data[1, 0] = 'D', data[1, 1] = 'E', data[1, 2] = 'F', data[2, 0] = 'G',data[2, 1] = 'H', and data[2, 2] = 'I', in the bottom right hand corner.’</p>
-<figure><img src="../fig/python-zero-index.svg" alt="'data' is a 3 by 3 numpy array containing row 0: ['A', 'B', 'C'], row 1: ['D', 'E', 'F'], androw 2: ['G', 'H', 'I']. Starting in the upper left hand corner, data[0, 0] = 'A', data[0, 1] = 'B',data[0, 2] = 'C', data[1, 0] = 'D', data[1, 1] = 'E', data[1, 2] = 'F', data[2, 0] = 'G',data[2, 1] = 'H', and data[2, 2] = 'I', in the bottom right hand corner." class="figure mx-auto d-block"></figure><hr>
-<h3 id="02-numpy-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Per-patient maximum inflammation is computed row-wise across all columns usingnumpy.amax(data, axis=1). Per-day average inflammation is computed column-wise across all rows usingnumpy.mean(data, axis=0).’</p>
-<figure><img src="../fig/python-operations-across-axes.png" alt="Per-patient maximum inflammation is computed row-wise across all columns usingnumpy.amax(data, axis=1). Per-day average inflammation is computed column-wise across all rows usingnumpy.mean(data, axis=0)." class="figure mx-auto d-block"></figure><hr></section><section id="03-matplotlib"><h2 class="section-heading"><a href="03-matplotlib.html">Visualizing Tabular Data</a></h2>
+<h3 id="02-basic-types-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘veg is represented as a shelf full of produce. There are three rows of vegetables on the shelf, and each row contains three baskets of vegetables. We can label each basket according to the type of vegetable it contains, so the top row contains (from left to right) lettuce, lettuce, and peppers.’</p>
+<figure><img src="../fig/04_groceries_veg.png" alt="veg is represented as a shelf full of produce. There are three rows of vegetables on the shelf, and each row contains three baskets of vegetables. We can label each basket according to the type of vegetable it contains, so the top row contains (from left to right) lettuce, lettuce, and peppers." class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-basic-types-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘veg is now shown as a list of three rows, with veg[0] representing the top row of three baskets, veg[1] representing the second row, and veg[2] representing the bottom row.’</p>
+<figure><img src="../fig/04_groceries_veg0.png" alt="veg is now shown as a list of three rows, with veg[0] representing the top row of three baskets, veg[1] representing the second row, and veg[2] representing the bottom row." class="figure mx-auto d-block"></figure><hr>
+<h3 id="02-basic-types-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘veg is now shown as a two-dimensional grid, with each basket labeled according to its index in the nested list. The first index is the row number and the second index is the basket number, so veg[1][3] represents the basket on the far right side of the second row (basket 4 on row 2): zucchini’</p>
+<figure><img src="../fig/04_groceries_veg00.png" alt="veg is now shown as a two-dimensional grid, with each basket labeled according to its index in the nested list. The first index is the row number and the second index is the basket number, so veg[1][3] represents the basket on the far right side of the second row (basket 4 on row 2): zucchini" class="figure mx-auto d-block"></figure><hr></section><section id="03-loops"><h2 class="section-heading"><a href="03-loops.html">Repeating Actions with Loops</a></h2>
 <hr class="half-width">
-<h3 id="03-matplotlib-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow.’</p>
-<figure><img src="../fig/inflammation-01-imshow.svg" alt="Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow." class="figure mx-auto d-block"></figure><hr>
-<h3 id="03-matplotlib-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the average inflammation across all patients over a 40-day period.’</p>
-<figure><img src="../fig/inflammation-01-average.svg" alt="A line graph showing the average inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
-<h3 id="03-matplotlib-figure-3">Figure 3</h3>
-<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the maximum inflammation across all patients over a 40-day period.’</p>
-<figure><img src="../fig/inflammation-01-maximum.svg" alt="A line graph showing the maximum inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
-<h3 id="03-matplotlib-figure-4">Figure 4</h3>
-<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the minimum inflammation across all patients over a 40-day period.’</p>
-<figure><img src="../fig/inflammation-01-minimum.svg" alt="A line graph showing the minimum inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
-<h3 id="03-matplotlib-figure-5">Figure 5</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period.’</p>
-<figure><img src="../fig/inflammation-01-group-plot.svg" alt="Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period." class="figure mx-auto d-block"></figure><hr>
-<h3 id="03-matplotlib-figure-6">Figure 6</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period.’</p>
-<figure><img src="../fig/inflammation-01-line-styles.svg" alt="Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period." class="figure mx-auto d-block"></figure><hr></section><section id="04-lists"><h2 class="section-heading"><a href="04-lists.html">Storing Multiple Values in Lists</a></h2>
-<hr class="half-width">
-<h3 id="04-lists-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘veg is represented as a shelf full of produce. There are three rows of vegetableson the shelf, and each row contains three baskets of vegetables. We can labeleach basket according to the type of vegetable it contains, so the top rowcontains (from left to right) lettuce, lettuce, and peppers.’</p>
-<figure><img src="../fig/04_groceries_veg.png" alt="veg is represented as a shelf full of produce. There are three rows of vegetableson the shelf, and each row contains three baskets of vegetables. We can labeleach basket according to the type of vegetable it contains, so the top rowcontains (from left to right) lettuce, lettuce, and peppers." class="figure mx-auto d-block"></figure><hr>
-<h3 id="04-lists-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘veg is now shown as a list of three rows, with veg[0] representing the top row ofthree baskets, veg[1] representing the second row, and veg[2] representing the bottom row.’</p>
-<figure><img src="../fig/04_groceries_veg0.png" alt="veg is now shown as a list of three rows, with veg[0] representing the top row ofthree baskets, veg[1] representing the second row, and veg[2] representing the bottom row." class="figure mx-auto d-block"></figure><hr>
-<h3 id="04-lists-figure-3">Figure 3</h3>
-<p aria-hidden="true">Image 1 of 1: ‘veg is now shown as a two-dimensional grid, with each basket labeled according toits index in the nested list. The first index is the row number and the secondindex is the basket number, so veg[1][3] represents the basket on the far rightside of the second row (basket 4 on row 2): zucchini’</p>
-<p>To reference a specific basket on a specific shelf, you use two
-indexes. The first index represents the row (from top to bottom) and the
-second index represents the specific basket (from left to right). <img src="../fig/04_groceries_veg00.png" alt="veg is now shown as a two-dimensional grid, with each basket labeled according toits index in the nested list. The first index is the row number and the secondindex is the basket number, so veg[1][3] represents the basket on the far rightside of the second row (basket 4 on row 2): zucchini" class="figure"></p>
-<hr></section><section id="05-loop"><h2 class="section-heading"><a href="05-loop.html">Repeating Actions with Loops</a></h2>
-<hr class="half-width">
-<h3 id="05-loop-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Line graphs showing average, maximum and minimum inflammation across all patients over a 40-dayperiod.’</p>
-<figure><img src="../fig/03-loop_2_0.png" alt="Line graphs showing average, maximum and minimum inflammation across all patients over a 40-dayperiod." class="figure mx-auto d-block"></figure><hr>
-<h3 id="05-loop-figure-2">Figure 2</h3>
+<h3 id="03-loops-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Loop variable 'num' being assigned the value of each element in the list odds in turn andthen being printed’</p>
-<figure><img src="../fig/05-loops_image_num.png" alt="Loop variable 'num' being assigned the value of each element in the list odds in turn andthen being printed" class="figure mx-auto d-block"></figure><hr></section><section id="06-files"><h2 class="section-heading"><a href="06-files.html">Analyzing Data from Multiple Files</a></h2>
+<figure><img src="../fig/05-loops_image_num.png" alt="Loop variable 'num' being assigned the value of each element in the list odds in turn andthen being printed" class="figure mx-auto d-block"></figure><hr></section><section id="04-cond"><h2 class="section-heading"><a href="04-cond.html">Making Choices</a></h2>
 <hr class="half-width">
-<h3 id="06-files-figure-1">Figure 1</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset.’</p>
-<figure><img src="../fig/03-loop_49_1.png" alt="Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset." class="figure mx-auto d-block"></figure><hr>
-<h3 id="06-files-figure-2">Figure 2</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset.’</p>
-<figure><img src="../fig/03-loop_49_3.png" alt="Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset." class="figure mx-auto d-block"></figure><hr>
-<h3 id="06-files-figure-3">Figure 3</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset.’</p>
-<figure><img src="../fig/03-loop_49_5.png" alt="Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset." class="figure mx-auto d-block"></figure><hr>
-<h3 id="06-files-figure-4">Figure 4</h3>
-<p aria-hidden="true">Image 1 of 1: ‘Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study.’</p>
-<figure><img src="../fig/inflammation-03-imshow.svg" alt="Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study." class="figure mx-auto d-block"></figure><hr></section><section id="07-cond"><h2 class="section-heading"><a href="07-cond.html">Making Choices</a></h2>
-<hr class="half-width">
-<h3 id="07-cond-figure-1">Figure 1</h3>
+<h3 id="04-cond-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘A flowchart diagram of the if-else construct that tests if variable num is greater than 100’</p>
 <figure><img src="../fig/python-flowchart-conditional.png" alt="A flowchart diagram of the if-else construct that tests if variable num is greater than 100" class="figure mx-auto d-block"></figure><hr>
-<h3 id="07-cond-figure-2">Figure 2</h3>
+<h3 id="04-cond-figure-2">Figure 2</h3>
 <p aria-hidden="true">Image 1 of 2: ‘A flowchart diagram of a conditional section with multiple elif conditions and some possible outcomes.’</p>
 <p aria-hidden="true">Image 2 of 2: ‘A flowchart diagram of a conditional section with multiple if statements and some possible outcomes.’</p>
 <p>C gets printed because the first two conditions,
@@ -533,11 +488,50 @@ action associated with the first true <code>elif</code> condition will
 occur, starting from the top of the conditional section. <img src="../fig/python-else-if.png" alt="A flowchart diagram of a conditional section with multiple elif conditions and some possible outcomes." class="figure">
 This contrasts with the case of multiple <code>if</code> statements,
 where every action can occur as long as their condition is met. <img src="../fig/python-multi-if.png" alt="A flowchart diagram of a conditional section with multiple if statements and some possible outcomes." class="figure"></p>
-<hr></section><section id="08-func"><h2 class="section-heading"><a href="08-func.html">Creating Functions</a></h2>
+<hr></section><section id="05-numpy"><h2 class="section-heading"><a href="05-numpy.html">Analyzing Patient Data</a></h2>
 <hr class="half-width">
-<h3 id="08-func-figure-1">Figure 1</h3>
+<h3 id="05-numpy-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘'data' is a 3 by 3 numpy array containing row 0: ['A', 'B', 'C'], row 1: ['D', 'E', 'F'], androw 2: ['G', 'H', 'I']. Starting in the upper left hand corner, data[0, 0] = 'A', data[0, 1] = 'B',data[0, 2] = 'C', data[1, 0] = 'D', data[1, 1] = 'E', data[1, 2] = 'F', data[2, 0] = 'G',data[2, 1] = 'H', and data[2, 2] = 'I', in the bottom right hand corner.’</p>
+<figure><img src="../fig/python-zero-index.svg" alt="'data' is a 3 by 3 numpy array containing row 0: ['A', 'B', 'C'], row 1: ['D', 'E', 'F'], androw 2: ['G', 'H', 'I']. Starting in the upper left hand corner, data[0, 0] = 'A', data[0, 1] = 'B',data[0, 2] = 'C', data[1, 0] = 'D', data[1, 1] = 'E', data[1, 2] = 'F', data[2, 0] = 'G',data[2, 1] = 'H', and data[2, 2] = 'I', in the bottom right hand corner." class="figure mx-auto d-block"></figure><hr>
+<h3 id="05-numpy-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Per-patient maximum inflammation is computed row-wise across all columns usingnumpy.amax(data, axis=1). Per-day average inflammation is computed column-wise across all rows usingnumpy.mean(data, axis=0).’</p>
+<figure><img src="../fig/python-operations-across-axes.png" alt="Per-patient maximum inflammation is computed row-wise across all columns usingnumpy.amax(data, axis=1). Per-day average inflammation is computed column-wise across all rows usingnumpy.mean(data, axis=0)." class="figure mx-auto d-block"></figure><hr></section><section id="06-plt"><h2 class="section-heading"><a href="06-plt.html">Visualizing Tabular Data</a></h2>
+<hr class="half-width">
+<h3 id="06-plt-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow.’</p>
+<figure><img src="../fig/inflammation-01-imshow.svg" alt="Heat map representing the data variable. Each cell is colored by value along a color gradientfrom blue to yellow." class="figure mx-auto d-block"></figure><hr>
+<h3 id="06-plt-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the average inflammation across all patients over a 40-day period.’</p>
+<figure><img src="../fig/inflammation-01-average.svg" alt="A line graph showing the average inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
+<h3 id="06-plt-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the maximum inflammation across all patients over a 40-day period.’</p>
+<figure><img src="../fig/inflammation-01-maximum.svg" alt="A line graph showing the maximum inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
+<h3 id="06-plt-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘A line graph showing the minimum inflammation across all patients over a 40-day period.’</p>
+<figure><img src="../fig/inflammation-01-minimum.svg" alt="A line graph showing the minimum inflammation across all patients over a 40-day period." class="figure mx-auto d-block"></figure><hr>
+<h3 id="06-plt-figure-5">Figure 5</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period.’</p>
+<figure><img src="../fig/inflammation-01-group-plot.svg" alt="Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period." class="figure mx-auto d-block"></figure><hr>
+<h3 id="06-plt-figure-6">Figure 6</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period.’</p>
+<figure><img src="../fig/inflammation-01-line-styles.svg" alt="Three line graphs, with step lines connecting the points, showing the daily average, maximumand minimum inflammation over a 40-day period." class="figure mx-auto d-block"></figure><hr></section><section id="07-func"><h2 class="section-heading"><a href="07-func.html">Creating Functions</a></h2>
+<hr class="half-width">
+<h3 id="07-func-figure-1">Figure 1</h3>
 <p aria-hidden="true">Image 1 of 1: ‘Labeled parts of a Python function definition’</p>
-<figure><img src="../fig/python-function.svg" alt="Labeled parts of a Python function definition" class="figure mx-auto d-block"></figure><hr></section><section id="09-errors"><h2 class="section-heading"><a href="09-errors.html">Errors and Exceptions</a></h2>
+<figure><img src="../fig/python-function.svg" alt="Labeled parts of a Python function definition" class="figure mx-auto d-block"></figure><hr></section><section id="08-files"><h2 class="section-heading"><a href="08-files.html">Analyzing Data from Multiple Files</a></h2>
+<hr class="half-width">
+<h3 id="08-files-figure-1">Figure 1</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset.’</p>
+<figure><img src="../fig/03-loop_49_1.png" alt="Output from the first iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the first dataset." class="figure mx-auto d-block"></figure><hr>
+<h3 id="08-files-figure-2">Figure 2</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset.’</p>
+<figure><img src="../fig/03-loop_49_3.png" alt="Output from the second iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the seconddataset." class="figure mx-auto d-block"></figure><hr>
+<h3 id="08-files-figure-3">Figure 3</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset.’</p>
+<figure><img src="../fig/03-loop_49_5.png" alt="Output from the third iteration of the for loop. Three line graphs showing the daily average, maximum and minimum inflammation over a 40-day period for all patients in the thirddataset." class="figure mx-auto d-block"></figure><hr>
+<h3 id="08-files-figure-4">Figure 4</h3>
+<p aria-hidden="true">Image 1 of 1: ‘Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study.’</p>
+<figure><img src="../fig/inflammation-03-imshow.svg" alt="Heat map of the third inflammation dataset. Note that there are sporadic zero values throughoutthe entire dataset, and the last patient only has zero values over the 40 day study." class="figure mx-auto d-block"></figure><hr></section><section id="09-errors"><h2 class="section-heading"><a href="09-errors.html">Errors and Exceptions</a></h2>
 <hr class="half-width"></section><section id="10-defensive"><h2 class="section-heading"><a href="10-defensive.html">Defensive Programming</a></h2>
 <hr class="half-width">
 <h3 id="10-defensive-figure-1">Figure 1</h3>

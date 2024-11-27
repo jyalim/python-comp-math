@@ -4,10 +4,19 @@
     <loc>https://jyalim.github.io/python-comp-math/01-intro.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/02-basic-types.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/02-numpy.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/03-loops.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/03-matplotlib.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/04-cond.html</loc>
   </url>
   <url>
     <loc>https://jyalim.github.io/python-comp-math/04-lists.html</loc>
@@ -16,10 +25,22 @@
     <loc>https://jyalim.github.io/python-comp-math/05-loop.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/05-numpy.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/06-files.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/06-plt.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/07-cond.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/07-func.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/08-files.html</loc>
   </url>
   <url>
     <loc>https://jyalim.github.io/python-comp-math/08-func.html</loc>
@@ -67,10 +88,19 @@
     <loc>https://jyalim.github.io/python-comp-math/instructor/01-intro.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/02-basic-types.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/02-numpy.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/03-loops.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/03-matplotlib.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/04-cond.html</loc>
   </url>
   <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/04-lists.html</loc>
@@ -79,10 +109,22 @@
     <loc>https://jyalim.github.io/python-comp-math/instructor/05-loop.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/05-numpy.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/06-files.html</loc>
   </url>
   <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/06-plt.html</loc>
+  </url>
+  <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/07-cond.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/07-func.html</loc>
+  </url>
+  <url>
+    <loc>https://jyalim.github.io/python-comp-math/instructor/08-files.html</loc>
   </url>
   <url>
     <loc>https://jyalim.github.io/python-comp-math/instructor/08-func.html</loc>
