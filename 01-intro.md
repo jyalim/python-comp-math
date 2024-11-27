@@ -1,17 +1,21 @@
 ---
-title: Python Fundamentals
+title: Python Basics
 teaching: 20
 exercises: 10
 ---
 
 ::::::::::::::::::::::::::::::::::::::: objectives
 
+- Understand the general motivation for Python and appropriate use
+  cases.
 - Assign values to variables.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
 :::::::::::::::::::::::::::::::::::::::: questions
 
+- Why should I use Python?
+- How should I use Python?
 - What basic object types can I work with in Python?
 - How can I create a new variable in Python?
 - How do I use a function?
@@ -27,6 +31,55 @@ generate output.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Python
+
+Python was first released in the early 90s by Guido von Rossum, a Dutch
+programmer who was looking for a hobby project when his government-run
+research lab in Amsterdam had closed for the holidays. As further noted
+in his [foreword for "Programming Python,"][Guido-foreword] Guido named
+the programming language after Monty Python's Flying Circus and wanted
+a high-level scripting language that would appeal to Unix and C
+programmers. 
+
+He had spent a lot of time thinking about the problems of existing
+high-level programming languages and decided Python should address many
+of his concerns. The result is something that aims to create readable,
+reusable, fast-to-write flexible code that values the programmer's time
+in generic tasks over the raw performance of the interpreter's
+execution. That is, for a specific compute task, pure Python will
+typically be slower than an alternative, specialized framework. However,
+a programmer that knows Python will be equipped to quickly write an
+understandable solution. In the cases where Python's computation is too
+slow, the ability to quickly build a prototype is still invaluable.
+
+Python is dynamically typed, garbage-collected, and supports
+object-oriented, procedural, and functional programming paradigms. In
+Python, most variables are instances of objects and often times people
+will say, "in Python, everything is an object." The dynamic typing is
+also commonly called "[duck typing][duck-typing]," as the interpreter
+determines whether to encode symbols like the number `5` as an integer
+object and the number `5.` as a floating-point object based on the
+presence of the decimal point or the larger context of the arithmetic,
+"...if it quacks like a duck..."
+
+In a scientific computing setting, one last point that makes Python
+competitive to other high-level languages, like MATLAB or Julia, is that
+it is very easy in Python to ***wrap*** existing frameworks. Thus,
+Python becomes an exceptionally convenient medium for moving data
+between already existing and performant scientific libraries, with the
+programmer "minimizing" the use of Python built-ins to solve problems.
+This ability to act as a "scientific library glue" has made Python one
+of the most popular programming languages within the scientific
+community and allows Python to be just as compute-performant as the more
+specialized frameworks of MATLAB and Julia. 
+
+By the end of this tutorial, attendees should have a familiarity with
+basic Python, common performance libraries like `numpy`, common plotting
+libraries like `matplotlib`, and via a simple example, how to wrap
+external libraries.
+
+---
+
 ## Variables
 
 Any Python interpreter can be used as a calculator:
@@ -41,19 +94,20 @@ Any Python interpreter can be used as a calculator:
 
 
 This is great but not very interesting.
-To do anything useful with data, we need to assign its value to a *variable*.
-In Python, we can [assign](../learners/reference.md#assign) a value to a
-[variable](../learners/reference.md#variable), using the equals sign `=`.
-For example, we can track the weight of a patient who weighs 60 kilograms by
-assigning the value `60` to a variable `patient_weight_kg`:
+To do anything useful with data, we need to assign its value to a
+***variable***.  In Python, we can
+[assign](../learners/reference.md#assign) a value to a
+[variable](../learners/reference.md#variable), using the equals sign
+`=`.  For example, we can track the weight of a patient who weighs 60
+kilograms by assigning the value `60` to a variable `patient_weight_kg`:
 
 ```python
 patient_weight_kg = 60
 ```
 
 From now on, whenever we use `patient_weight_kg`, Python will substitute
-the value we assigned to it. In layperson's terms, **a variable is a
-name for a value**.
+the value we assigned to it. In layperson's terms, ***a variable is a
+name for a value***.
 
 In Python, variable names:
 
@@ -74,16 +128,16 @@ Real world variables are typically given multi-word names to improve
 code legibility. For instance, `patient_weight_kg` instead of just `w`
 or `kg` communicates to code readers that the variable stores a weight
 in kilograms for a patient. The use of underscores in the variable name
-like `patient_weight_kg` is an example of *snake case*, which is the
+like `patient_weight_kg` is an example of ***snake case***, which is the
 [cultural style][PEP8-style] of Python.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
 
 ## Common object types
 
-In Python, nearly every variable is an instance of some *class*, which
+In Python, nearly every variable is an instance of some ***class***, which
 provide powerful builtin methods for transforming the underlying
-*object*. We start simple, by introducing three common "variable types":
+***object***. We start simple, by introducing three common "variable types":
 
 - integer numbers, which are `int` objects,
 - floating point numbers, which are `float` objects,
@@ -107,13 +161,13 @@ the `int` `patient_weight_g = 60300`?
 :::::::::::::::::::::::::::::::::::::::  solution
 Floating-point arithmetic results in rounding errors. The default
 floating-point computer number uses 64 bits to store values, such that 1
-bit stores a sign, 11 bits store an *exponent*, and the remaining 52
-bits store the *significand* or *fraction*. This *double precision*
-system results in only $2^{52}-1$ (roughly 4.5 quintillion) numbers
+bit stores a sign, 11 bits store an ***exponent***, and the remaining 52
+bits store the ***significand***. This ***double precision*** system
+results in exactly $2^{52}-1$ (roughly 4.5 quintillion) numbers
 exclusively between every representable power of 2, for instance,
 between 1/2 and 1, 1 and 2, or $2^{100}$ and $2^{101}$. The resulting
-finite rational number system is non-associative.
-E.g., letting $\varepsilon=2^{-52}$, $(2+\varepsilon)+\varepsilon \neq
+finite rational number system is non-associative, for instance,
+letting $\varepsilon=2^{-52}$, $(2+\varepsilon)+\varepsilon \neq
 2+(\varepsilon + \varepsilon)$.
 
 ![
@@ -122,15 +176,15 @@ rounding errors for different values between 1 and 1 plus machine
 epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up
 to the nearest computer floating-point number, $1+\varepsilon$; else
 values will be rounded down to $1$. When computing sums,
-higher-precision **registers** are used which then follow rounding rules
+higher-precision ***registers*** are used which then follow rounding rules
 when truncating to the lower precision floating-point.
 ](fig/floating-point-rounding-figure.png){alt='Figure illustrating
 rounding errors for different values between 1 and 1 plus machine
 epsilon. Values in $[1+\varepsilon/2,1+\varepsilon]$ will be rounded up
 to the nearest computer floating-point number, $1+\varepsilon$; else
 values will be rounded down to $1$. When computing sums,
-higher-precision **registers** are used which then follow rounding rules
-when truncating to the lower precision floating-point.'}
+higher-precision ***registers*** are used which then follow rounding
+rules when truncating to the lower precision floating-point.'}
 
 In a quirk of Python, base `int` integers allow arbitrary precision. 
 ::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::::
@@ -230,7 +284,7 @@ print(patient_weight_kg)
 ```
 
 To change the value of the `patient_weight_kg` variable, we have to
-**assign** `patient_weight_kg` a new value using the equals `=` sign:
+***assign*** `patient_weight_kg` a new value using the equals `=` sign:
 
 ```python
 patient_weight_kg = 65.0
@@ -339,8 +393,8 @@ age = age - 20
 
 Python allows you to assign multiple values to multiple variables in one
 line by separating the variables and values with commas. This kind of
-syntax is called, *multiple assignment*. What does the following program
-print out?
+syntax is called, ***multiple assignment***. What does the following
+program print out?
 
 ```python
 first, second = 'Grace', 'Hopper'
@@ -407,14 +461,15 @@ print((1+1e-3)**1000)
 2.7169239322355936
 ```
 
-Something quirky is that `/` is a *true divide* whereas `//` does an
-integer divide. 
+Something quirky is that `/` is a ***true divide*** whereas `//` does a
+***floor division***, which will preserve `int`s but cast to `float`
+when mixing types. 
 
 ```python
-print(4/3,4//3,4e0//3e0)
+print(4/3,4//3,4e0//3e0,4e0//3)
 ```
 ```output
-1.3333333333333333 1 1.0
+1.3333333333333333 1 1.0 1.0
 ```
 
 The `%` computes a modulus
@@ -447,8 +502,73 @@ TypeError: unsupported operand type(s) for /: 'str' and 'int'
 ```
 
 A final operator to note is the `matmul` symbol, `@`. This will be
-utilized in the next section after introducing a powerful Python library
+utilized in a later section when introducing a powerful Python library
 called `numpy`.
+
+## Using external modules
+
+Python is a Turing-complete programming language. This means that it is
+possible with Python to construct any arbitrary program. Often times, we
+want to build ***modules*** that serve as function libraries for us to
+leverage when tackling a problem. Additionally, as mentioned at the
+start of the lesson, Python is exceptional for its ability to ***wrap***
+external, non-Python libraries and make them available within Python. To
+motivate this, consider the challenge of computing the natural logarithm
+of a number:
+
+```python
+log(5)
+```
+
+```output
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+Cell In[7], line 1
+----> 1 log
+
+NameError: name 'log' is not defined
+```
+
+As the error indicates, out-of-the-box Python does not know what we mean
+by `log` --- it is undefined. One solution would be to use the built-in
+--- but not loaded by default --- `math` library, which provides access
+to functions defined by the C standard ([C source code][math-module]):
+
+```python
+import math
+print(math.log(5))
+```
+
+```output
+1.6094379124341003
+```
+
+This works, and is hard to beat performance wise on scalar values.
+However, use of the `math` library on data structures will be extremely
+slow. Luckily, the Numeric Python library, `numpy`, is far more powerful
+and provides a large math library:
+
+```python
+import numpy as np
+print(np.log(5))
+```
+
+```output
+1.6094379124341003
+```
+
+Notice that `numpy` was imported into the namespace as an alias, `np`.
+This is very common practice in Python. For MATLAB or Julia programmers,
+it may seem strange to have to import scientific computing tools, but
+Python is a general programming language and specifying the host library
+with every use --- e.g., `np.log` --- ultimately improves the
+readability of the code.
+
+The full reasons for mostly never using `math` and using `numpy` will be
+made more clear in a few lessons, but for now we can say that it is
+because `numpy` provides a data structure class that allows for highly
+performant C/fortran compiled libraries to operate on simultaneously,
+whereas the `math` library has to work one scalar at a time.
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
 
@@ -463,3 +583,6 @@ called `numpy`.
 
 
 [PEP8-style]: https://peps.python.org/pep-0008
+[Guido-foreword]: https://www.python.org/doc/essays/foreword/
+[duck-typing]: https://docs.python.org/3/glossary.html#term-duck-typing
+[math-module]: https://github.com/python/cpython/blob/main/Modules/mathmodule.c

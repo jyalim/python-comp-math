@@ -22,14 +22,18 @@ exercises: 0
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-At this point, we've seen that code can have Python make decisions about what it sees in our data. What if we want to convert some of our data, like taking a temperature in Fahrenheit and converting it to Celsius. We could write something like this for converting a single number
+At this point, we've seen that code can have Python make decisions about
+what it sees in our data. What if we want to convert some of our data,
+like taking a temperature in Fahrenheit and converting it to Celsius. We
+could write something like this for converting a single number
 
 ```python
 fahrenheit_val = 99
 celsius_val = ((fahrenheit_val - 32) * (5/9))
 ```
 
-and for a second number we could just copy the line and rename the variables
+and for a second number we could just copy the line and rename the
+variables
 
 ```python
 fahrenheit_val = 99
@@ -39,13 +43,13 @@ fahrenheit_val2 = 43
 celsius_val2 = ((fahrenheit_val2 - 32) * (5/9))
 ```
 
-But we would be in trouble as soon as we had to do this more than a couple times.
-Cutting and pasting it is going to make our code get very long and very repetitive,
-very quickly.
-We'd like a way to package our code so that it is easier to reuse,
-a shorthand way of re-executing longer pieces of code. In Python we can use 'functions'.
-Let's start by defining a function `fahr_to_celsius` that converts temperatures
-from Fahrenheit to Celsius:
+But we would be in trouble as soon as we had to do this more than a
+couple times.  Cutting and pasting it is going to make our code get very
+long and very repetitive, very quickly.  We'd like a way to package our
+code so that it is easier to reuse, a shorthand way of re-executing
+longer pieces of code. In Python we can use 'functions'.  Let's start by
+defining a function `fahr_to_celsius` that converts temperatures from
+Fahrenheit to Celsius:
 
 ```python
 def explicit_fahr_to_celsius(temp):
@@ -65,17 +69,17 @@ def fahr_to_celsius(temp):
 ![](fig/python-function.svg){alt='Labeled parts of a Python function definition'}
 
 The function definition opens with the keyword `def` followed by the
-name of the function (`fahr_to_celsius`) and a parenthesized list of parameter names (`temp`). The
-[body](../learners/reference.md#body) of the function --- the
-statements that are executed when it runs --- is indented below the
-definition line.  The body concludes with a `return` keyword followed by the return value.
+name of the function (`fahr_to_celsius`) and a parenthesized list of
+parameter names (`temp`). The [body](../learners/reference.md#body) of
+the function --- the statements that are executed when it runs --- is
+indented below the definition line.  The body concludes with a `return`
+keyword followed by the return value.
 
-When we call the function,
-the values we pass to it are assigned to those variables
-so that we can use them inside the function.
-Inside the function,
-we use a [return statement](../learners/reference.md#return-statement) to send a result
-back to whoever asked for it.
+When we call the function, the values we pass to it are assigned to
+those variables so that we can use them inside the function.  Inside the
+function, we use a 
+[return statement](../learners/reference.md#return-statement) to send a
+result back to whoever asked for it.
 
 Let's try running our function.
 
@@ -83,43 +87,43 @@ Let's try running our function.
 fahr_to_celsius(32)
 ```
 
-This command should call our function, using "32" as the input and return the function value.
+This command should call our function, using `32` as the input and
+return the function value.
 
-In fact, calling our own function is no different from calling any other function:
+In fact, calling our own function is no different from calling any other
+function:
 
 ```python
-print('freezing point of water:', fahr_to_celsius(32), 'C')
-print('boiling point of water:', fahr_to_celsius(212), 'C')
+print(f'freezing point of water: {fahr_to_celsius(32)}ºC')
+print(f'boiling point of water: {fahr_to_celsius(212)}ºC')
 ```
 
 ```output
-freezing point of water: 0.0 C
-boiling point of water: 100.0 C
+freezing point of water: 0.0ºC
+boiling point of water: 100.0ºC
 ```
 
-We've successfully called the function that we defined,
-and we have access to the value that we returned.
+We've successfully called the function that we defined, and we have
+access to the value that we returned.
 
 ## Composing Functions
 
-Now that we've seen how to turn Fahrenheit into Celsius,
-we can also write the function to turn Celsius into Kelvin:
+Now that we've seen how to turn Fahrenheit into Celsius, we can also
+write the function to turn Celsius into Kelvin:
 
 ```python
 def celsius_to_kelvin(temp_c):
     return temp_c + 273.15
 
-print('freezing point of water in Kelvin:', celsius_to_kelvin(0.))
+print(f'freezing point of water: {celsius_to_kelvin(0.)}ºK')
 ```
 
 ```output
-freezing point of water in Kelvin: 273.15
+freezing point of water: 273.15ºK
 ```
 
-What about converting Fahrenheit to Kelvin?
-We could write out the formula,
-but we don't need to.
-Instead,
+What about converting Fahrenheit to Kelvin?  We could write out the
+formula, but we don't need to.  Instead,
 we can [compose](../learners/reference.md#compose) the two functions we have already created:
 
 ```python
@@ -128,30 +132,31 @@ def fahr_to_kelvin(temp_f):
     temp_k = celsius_to_kelvin(temp_c)
     return temp_k
 
-print('boiling point of water in Kelvin:', fahr_to_kelvin(212.0))
+print(f'boiling point of water: {fahr_to_kelvin(212.)ºK}')
 ```
 
 ```output
-boiling point of water in Kelvin: 373.15
+boiling point of water: 373.15ºK
 ```
 
-This is our first taste of how larger programs are built:
-we define basic operations,
-then combine them in ever-larger chunks to get the effect we want.
-Real-life functions will usually be larger than the ones shown here --- typically half a dozen
-to a few dozen lines --- but they shouldn't ever be much longer than that,
-or the next person who reads it won't be able to understand what's going on.
+This is our first taste of how larger programs are built: we define
+basic operations, then combine them in ever-larger chunks to get the
+effect we want.  Real-life functions will usually be larger than the
+ones shown here --- typically half a dozen to a few dozen lines --- but
+they shouldn't ever be much longer than that, or the next person who
+reads it won't be able to understand what's going on.
 
 ## Variable Scope
 
-In composing our temperature conversion functions, we created variables inside of those functions,
-`temp`, `temp_c`, `temp_f`, and `temp_k`.
-We refer to these variables as [local variables](../learners/reference.md#local-variable)
-because they no longer exist once the function is done executing.
-If we try to access their values outside of the function, we will encounter an error:
+In composing our temperature conversion functions, we created variables
+inside of those functions, `temp`, `temp_c`, `temp_f`, and `temp_k`.
+We refer to these variables as 
+[local variables](../learners/reference.md#local-variable) because they
+no longer exist once the function is done executing.  If we try to
+access their values outside of the function, we will encounter an error:
 
 ```python
-print('Again, temperature in Kelvin was:', temp_k)
+print(f'Again, temperature in degrees Kelvin was: {temp_k}')
 ```
 
 ```error
@@ -163,27 +168,28 @@ NameError                                 Traceback (most recent call last)
 NameError: name 'temp_k' is not defined
 ```
 
-If you want to reuse the temperature in Kelvin after you have calculated it with `fahr_to_kelvin`,
-you can store the result of the function call in a variable:
+If you want to reuse the temperature in Kelvin after you have calculated
+it with `fahr_to_kelvin`, you can store the result of the function call
+in a variable:
 
 ```python
 temp_kelvin = fahr_to_kelvin(212.0)
-print('temperature in Kelvin was:', temp_kelvin)
+print(f'temperature in degrees Kelvin was: {temp_kelvin}')
 ```
 
 ```output
-temperature in Kelvin was: 373.15
+temperature in degrees Kelvin was: 373.15
 ```
 
-The variable `temp_kelvin`, being defined outside any function,
-is said to be [global](../learners/reference.md#global-variable).
+The variable `temp_kelvin`, being defined outside any function, is said
+to be [global](../learners/reference.md#global-variable).
 
 Inside a function, one can read the value of such global variables:
 
 ```python
 def print_temperatures():
-    print('temperature in Fahrenheit was:', temp_fahr)
-    print('temperature in Kelvin was:', temp_kelvin)
+    print(f'temperature in degrees Fahrenheit was: {temp_fahr}')
+    print(f'temperature in degrees Kelvin was: {temp_kelvin}')
 
 temp_fahr = 212.0
 temp_kelvin = fahr_to_kelvin(temp_fahr)
@@ -192,15 +198,15 @@ print_temperatures()
 ```
 
 ```output
-temperature in Fahrenheit was: 212.0
-temperature in Kelvin was: 373.15
+temperature in degrees Fahrenheit was: 212.0
+temperature in degrees Kelvin was: 373.15
 ```
 
 ## Tidying up
 
-Now that we know how to wrap bits of code up in functions,
-we can make our inflammation analysis easier to read and easier to reuse.
-First, let's make a `visualize` function that generates our plots:
+Now that we know how to wrap bits of code up in functions, we can make
+our inflammation analysis easier to read and easier to reuse.  First,
+let's make a `visualize` function that generates our plots:
 
 ```python
 def visualize(filename):

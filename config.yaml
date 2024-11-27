@@ -60,13 +60,13 @@ contact: 'yalim@asu.edu'
 # Order of episodes in your lesson
 episodes: 
 - 01-intro.md
-- 02-numpy.md
-- 03-matplotlib.md
-- 04-lists.md
-- 05-loop.md
-- 06-files.md
-- 07-cond.md
-- 08-func.md
+- 02-basic-types.md
+- 03-loops.md
+- 04-cond.md
+- 05-numpy.md
+- 06-plt.md
+- 07-func.md
+- 08-files.md
 - 09-errors.md
 - 10-defensive.md
 - 11-debugging.md
