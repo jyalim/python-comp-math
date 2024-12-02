@@ -1,5 +1,5 @@
 ---
-title: Making Choices
+title: Conditionals
 teaching: 30
 exercises: 0
 ---
@@ -20,7 +20,7 @@ exercises: 0
 In this lesson, we'll learn how to write code that runs only when
 certain conditions are true.
 
-## Conditionals
+## Making choices
 
 We can ask Python to take different actions, depending on a condition,
 with an `if` statement:
