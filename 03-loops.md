@@ -243,10 +243,6 @@ use it when we can.
 
 ## Iterating over ranges
 
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## From 1 to N
-
 Python has a built-in function called `range` that generates a sequence
 of numbers. `range` can accept 1, 2, or 3 parameters.
 
@@ -259,6 +255,10 @@ of numbers. `range` can accept 1, 2, or 3 parameters.
 - If `range` is given 3 parameters, it starts at the first one, ends
   just before the second one, and increments by the third one.  For
   example, `range(3, 10, 2)` produces `3, 5, 7, 9`.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## From 1 to N
 
 Using `range`, write a loop that prints the first 3 non-zero integers:
 
@@ -276,37 +276,6 @@ Using `range`, write a loop that prints the first 3 non-zero integers:
 for number in range(1, 4):
     print(number)
 ```
-
-:::::::::::::::::::::::::
-
-::::::::::::::::::::::::::::::::::::::::::::::::::
-
-## Iterating over strings
-
-:::::::::::::::::::::::::::::::::::::::  challenge
-
-## Understanding the loops
-
-Given the following loop:
-
-```python
-word = 'oxygen'
-for letter in word:
-    print(letter)
-```
-
-How many times is the body of the loop executed?
-
-- 3 times
-- 4 times
-- 5 times
-- 6 times
-
-:::::::::::::::  solution
-
-## Solution
-
-The body of the loop is executed 6 times.
 
 :::::::::::::::::::::::::
 
@@ -360,9 +329,51 @@ so `[124, 402, 36]` prints 562
 numbers = [124, 402, 36]
 summed = 0
 for num in numbers:
-    summed = summed + num
+    summed += num
 print(summed)
 ```
+
+Alternatively, we could have used the built-in `sum` function,
+
+```python
+numbers = [124, 402, 36]
+summed = sum(numbers)
+print(summed)
+```
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+## Iterating over strings
+
+In Python, any ***iterable*** object may be looped over. This, for
+example, includes the characters in a string.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Understanding the loops
+
+Given the following loop:
+
+```python
+word = 'oxygen'
+for letter in word:
+    print(letter)
+```
+
+How many times is the body of the loop executed?
+
+- 3 times
+- 4 times
+- 5 times
+- 6 times
+
+:::::::::::::::  solution
+
+## Solution
+
+The body of the loop is executed 6 times.
 
 :::::::::::::::::::::::::
 
@@ -531,7 +542,7 @@ print(a)
 ```
 
 ```output
-42%|█████████████████▎          | 4233/10000 [00:03<00:04, 1183.17it/s]]
+42%|████████████                | 4233/10000 [00:03<00:04, 1183.17it/s]]
 ```
 
 :::::::::::::::::::::::::::::::::::::::: keypoints
