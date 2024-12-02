@@ -392,6 +392,13 @@ for index, odd in enumerate(odds):
     print(f'list_index={index} :: list_value={odd}')
 ```
 
+```output
+list_index=0 :: list_value=1
+list_index=1 :: list_value=3
+list_index=2 :: list_value=5
+list_index=3 :: list_value=7
+```
+
 The code above loops through `odds`, assigning the index to `index` and
 the value to `odd`.
 
