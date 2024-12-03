@@ -1,5 +1,5 @@
 ---
-title: Analyzing Patient Data
+title: Numeric Python (NumPy)
 teaching: 40
 exercises: 20
 ---
@@ -20,32 +20,284 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
-Words are useful, but what's more useful are the sentences and stories we build with them.
-Similarly, while a lot of powerful, general tools are built into Python,
-specialized tools built up from these basic units live in
-[libraries](../learners/reference.md#library)
+Words are useful, but what's more useful are the sentences and stories
+we build with them.  Similarly, while a lot of powerful, general tools
+are built into Python, specialized tools built up from these basic units
+live in [libraries](../learners/reference.md#library)
 that can be called upon when needed.
+
+## The `ndarray`
+
+The base work-horse of the NumPy framework is the `ndarray` object. This
+object provides a performant container for tensor algebra. For those
+familiar with MATLAB, many syntactical features and operations will 
+seem familiar, but there are subtle differences that may be awkward at
+first. For a full reference, see the official docs, [NumPy for MATLAB
+users](https://numpy.org/doc/2.1/user/numpy-for-matlab-users.html), 
+which provides a Rosetta-Stone-like guide for MATLAB users.
+
+The very first thing to do in Python to work with NumPy is to import the
+external library:
+
+```python
+import numpy as np
+a = np.arange(5)
+print(f'{a}\n `a` is of type: {type(a)}\n and `a[0]` type: {type(a[0])}')
+```
+
+```output
+[0 1 2 3 4]
+ `a` is of type: <class 'numpy.ndarray'>
+ and `a[0]` type: <class 'numpy.int64'>
+```
+
+The first line of code imports the external library into the workspace,
+renaming it by common convention to `np`. To access objects and methods
+within the library, we have to write `np.` and then the target code. 
+
+The code above prints the result of using the `arange` method, which is
+similar to the built-in `range` method, but instead generates a
+one-dimensional `ndarray` object with the first five non-negative
+integers (recall, Python is zero-indexed). Also, the elements of the
+generated `ndarray`, `a`, are not "vanilla" Python `int` objects.
+Instead they are 64-bit integer objects provided by the NumPy library.
+
+For the rest of this lesson, ***we will assume that NumPy has been
+imported as `np`***. 
+
+The NumPy `ndarray` automatically ***broadcasts*** scalar arithmetic to
+the elements of the `ndarray`:
+
+```python
+a = np.arange(5)
+print(f'1+a: {1+a}')
+print(f'2*a: {2*a}')
+```
+
+```output
+1+a: [1 2 3 4 5]
+2*a: [0 2 4 6 8]
+```
+
+For MATLAB users, `np.arange(<start>,<excluded end>,<stride>)` provides
+functionality like the colon operator,
+`<start>:<stride>:<included end>`. Thus, we may generate an `ndarray` of
+odd numbers without list comprehension, improving performance as a perk,
+
+```python
+# benchmark generating the first ten-million odds with vanilla Python
+# NOTE: `%timeit` is a "Jupyter Magic," a Jupyter macro, not Python!
+%timeit odd_list = [2*k+1 for k in range(10**7)]
+```
+
+```output
+396 ms ± 1.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+```
+
+```python
+# benchmark generating the first ten-million odds with NumPy
+%timeit odd_array = 2*np.arange(10**7)+1
+# Even less Python and more NumPy:
+%timeit odd_array2 = np.arange(1,2*10**7,2)
+```
+
+```output
+13 ms ± 550 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+8 ms ± 90 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
+```
+
+Vanilla Python is over 30 times slower than NumPy! Our second attempt
+is nearly 50 times faster than the naive vanilla Python version. 
+Why is this? It may help to spell out the operations involved. 
+
+#### Vanilla list comprehension 
+
+In this approach, Python is asked to do ten-million product and sum
+operations (twenty-million actions), and store the results in a generic,
+unoptimized `list` object.
+
+#### First NumPy approach
+
+In this solution, `odd_array = 2*np.arange(10**7)+1`, NumPy is asked to
+generate a list of the first ten-million non-negative integers, which is
+done in a performant C library with the updated memory passed back to
+Python's workspace. Then NumPy is told --- through broadcasting --- to
+multiply every element by two and add one. It's still twenty-million
+actions, but the difference is that Python is only involved up to three
+times; the rest is done in an expertly written backend library.
+
+#### Second NumPy approach
+
+The last solution, `odd_array2 = np.arange(1,2*10**7,2)` was the
+fastest. This is because Python did almost nothing.
+
+#### Implicit lesson
+
+To write the best Python programs, adopt the best practices with the
+correct external libraries, minimizing the amount of compute that Python
+will be responsible for. Python is best when it's used at the highest
+level to transform data.
+
+## Naive matrix multiplication
+
+This next example would have been counter productive to introduce prior
+to NumPy, as it is an exhausting exercise to even generate
+two-dimensional lists in vanilla Python. However, it's much simpler
+with Numpy. For instance, to generate a four-by-four of uniformly random
+numbers in $(0,1)$:
+
+```python
+A = np.random.rand(4,4)
+print(A)
+```
+
+```output
+[[0.95781959 0.9915284  0.58248825 0.41600528]
+ [0.77493045 0.67522185 0.00530085 0.2539285 ]
+ [0.53248467 0.75761823 0.69219508 0.58811258]
+ [0.59892653 0.77743011 0.95975933 0.71425297]]
+```
+
+We will write a few ***functions*** to do matrix multiplication with
+vanilla Python.
+
+```python
+def vanilla_dot_product(u,v):
+    running_sum = 0
+    for i in range(len(u)):
+        running_sum += u[i]*v[i]
+    return running_sum
+def vanilla_matrix_vector_product(A,x):
+    y = [ vanilla_dot_product(a,x) for a in A ]
+    return y
+def vanilla_matrix_tranpose(A):
+    A_Tranposed = list(map(list,zip(*A)))
+    return A_Tranposed
+def vanilla_matrix_matrix_product(A,B):
+    # take the transpose of B
+    BT = vanilla_matrix_tranpose(B)
+    CT = [ vanilla_matrix_vector_product(A,b_col) for b_col in BT ]
+    C  = vanilla_matrix_tranpose(CT)
+    return C
+
+```
+
+```python
+# originally 1000x1000, but list method takes way too long
+A,B = np.random.rand(2,100,100)
+AL,BL = A.tolist(),B.tolist()
+%timeit CL = vanilla_matrix_matrix_product(AL,BL)
+# A@B implicitly calls LAPACK dgemm and parallelizes if multiple cores
+%timeit C = A@B
+# Validate accuracy of custom matrix-matrix product
+CL = vanilla_matrix_matrix_product(AL,BL)
+C  = A@B
+# compute elementwise error matrix
+elementwise_error = C - np.array(CL)
+# print out the Frobenius norm of the error matrix
+print(f'Fro. norm: {np.linalg.norm(elementwise_error)}')
+# Another way to check
+print(f'Are all elements close? {np.all(np.isclose(C,np.array(CL)))}')
+```
+
+```output
+22.9 ms ± 49.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+355 µs ± 9.38 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+Fro. norm: 2.354728334780352e-13
+Are all elements close? True
+```
+
+The simpler matrix-matrix product provided by NumPy, by just using the
+`@` operator for the two matrices, is nearly 65 times faster than the
+vanilla approach.
+
+:::::::::::::::::::::::::::::::::::::::  challenge
+
+## Approximating derivatives
+
+The second-order, central finite difference stencil,
+$$\dfrac{u(x_{i+1})-u(x_{i-1})}{2\Delta x},$$
+where $\Delta x=x_1-x_0$ is the uniform spatial step,
+approximates the first derivative of a function $u$ at a point $x_i$.
+Let $u(x)=\sin(x)$ for $x\in[0,2\pi)$ and discretize the domain such
+that $x_i = 2\pi i/N$ for $i=0,...,N$.
+Use NumPy to compute the first derivative of $u$ with $N=10^k$ for
+$k=1,...,4$. Using a 2-norm, how does the error change with $\Delta x$?
+
+:::::::::::::::  solution
+
+## Solution
+
+```python
+import numpy as np
+import matplotlib.pyplot as plt
+def challenge(N):
+    # N+1 is important here, because definition of x
+    x = np.linspace(0,2*np.pi,N+1)[:-1]
+    dx= x[1]-x[0]
+    u = np.sin(x)
+    # put 1 and -1 on super- and sub-diagonal, respectively
+    D = np.diag(np.ones(N-1),1)-np.diag(np.ones(N-1),-1)
+    # circulant derivative operator (periodicity)
+    D[0,-1] =-1
+    D[-1,0] = 1
+    D /= 2*dx
+    # compute derivative
+    du= D@u
+    # exact result
+    ex= np.cos(x)
+    rel_err = np.linalg.norm(ex-du)/np.linalg.norm(ex)
+    return rel_err
+
+Ns = 10**np.arange(1,5)
+rel_errs = np.array([challenge(N) for N in Ns])
+dxs = 2*np.pi / Ns
+plt.loglog(dxs,rel_errs,'ro-',linewidth=2,label='Relative Error')
+c = np.polyfit(np.log(dxs),np.log(rel_errs),1)
+h = np.logspace(-4,0,41)
+E = np.exp(c[1])*h**c[0]
+plt.loglog(h,E,'k-',linewidth=3,zorder=-1,label='Algebraic Fit')
+plt.legend()
+print(f'Relative error is second order in ∆x: {c[0]:.5f}')
+```
+
+```output
+Relative error is second order in ∆x: 1.99742
+```
+
+
+![](fig/numpy-central-difference-challenge.svg){alt="Log.-log. plot of the
+second-order error when estimating the derivative of $\cos(x)$."}
+
+:::::::::::::::::::::::::
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+
 
 ## Loading data into Python
 
-To begin processing the clinical trial inflammation data, we need to load it into Python.
-We can do that using a library called
-[NumPy](https://numpy.org/doc/stable "NumPy Documentation"), which stands for Numerical Python.
-In general, you should use this library when you want to do fancy things with lots of numbers,
-especially if you have matrices or arrays. To tell Python that we'd like to start using NumPy,
-we need to [import](../learners/reference.md#import) it:
+To begin processing the clinical trial inflammation data, we need to
+load it into Python.  We can do that using a library called
+[NumPy](https://numpy.org/doc/stable "NumPy Documentation"), which
+stands for Numerical Python.  In general, you should use this library
+when you want to do fancy things with lots of numbers, especially if you
+have matrices or arrays. To tell Python that we'd like to start using
+NumPy, we need to [import](../learners/reference.md#import) it:
 
 ```python
 import numpy
 ```
 
-Importing a library is like getting a piece of lab equipment out of a storage locker and setting it
-up on the bench. Libraries provide additional functionality to the basic Python package, much like
-a new piece of equipment adds functionality to a lab space. Just like in the lab, importing too
-many libraries can sometimes complicate and slow down your programs - so we only import what we
-need for each program.
+Importing a library is like getting a piece of lab equipment out of a
+storage locker and setting it up on the bench. Libraries provide
+additional functionality to the basic Python package, much like a new
+piece of equipment adds functionality to a lab space. Just like in the
+lab, importing too many libraries can sometimes complicate and slow down
+your programs - so we only import what we need for each program.
 
-Once we've imported the library, we can ask the library to read our data file for us:
+Once we've imported the library, we can ask the library to read our data
+file for us:
 
 ```python
 numpy.loadtxt(fname='inflammation-01.csv', delimiter=',')
