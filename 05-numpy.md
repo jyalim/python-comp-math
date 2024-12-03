@@ -228,6 +228,42 @@ $k=1,...,4$. Using a 2-norm, how does the error change with $\Delta x$?
 
 ## Solution
 
+The discretization of the domain together with the periodicity of $u$
+and the second-order stencil induces a set of linear equations,
+$$D_{ij}u_j \approx u_j'$$
+$$
+\dfrac{1}{2\Delta x}
+\begin{bmatrix}
+  0    &  1     & 0      & ...     &    0 &   -1  \\
+ -1    &  0     & 1      & 0       &      &    0  \\
+  0    & -1     & 0      & \ddots  &\ddots& \vdots\\
+\vdots &  0     & \ddots & \ddots  &    1 &    0  \\
+  0    &        & \ddots & -1      &    0 &    1  \\
+  1    &  0     & ...    & 0       &   -1 &    0  \\
+\end{bmatrix}
+\begin{bmatrix}
+u(x_0)     \\
+u(x_1)     \\
+ \vdots    \\
+u(x_{N-3}) \\
+u(x_{N-2}) \\
+u(x_{N-1}) \\
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+u'(x_0)     \\
+u'(x_1)     \\
+ \vdots     \\
+u'(x_{N-3}) \\
+u'(x_{N-2}) \\
+u'(x_{N-1}) \\
+\end{bmatrix}
+$$
+The following code defines a function, `challenge`, which takes an input
+$N$ and computes the relative error. It also plots the degree of error
+on a log.-log. scale, demonstrating that the stencil converges
+quadratically with the step size, $\Delta x$.
+
 ```python
 import numpy as np
 import matplotlib.pyplot as plt
