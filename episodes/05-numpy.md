@@ -143,7 +143,7 @@ level to transform data.
 This next example would have been counter productive to introduce prior
 to NumPy, as it is an exhausting exercise to even generate
 two-dimensional lists in vanilla Python. However, it's much simpler
-with Numpy. For instance, to generate a four-by-four of uniformly random
+with NumPy. For instance, to generate a four-by-four of uniformly random
 numbers in $(0,1)$:
 
 ```python
@@ -221,8 +221,14 @@ where $\Delta x=x_1-x_0$ is the uniform spatial step,
 approximates the first derivative of a function $u$ at a point $x_i$.
 Let $u(x)=\sin(x)$ for $x\in[0,2\pi)$ and discretize the domain such
 that $x_i = 2\pi i/N$ for $i=0,...,N$.
-Use NumPy to compute the first derivative of $u$ with $N=10^k$ for
-$k=1,...,4$. Using a 2-norm, how does the error change with $\Delta x$?
+Use NumPy matrix multiplication to compute the first derivative of $u$
+with $N=10^k$ for $k=1,...,4$, by constructing the appropriate dense
+operator $D$ for the stencil. Using a 2-norm, how does the error change
+with $\Delta x$?
+
+Extra Credit: since the stencil is very sparse, how could we improve the
+performance of the code and go to larger $N$? What is the largest $N$ we
+could go to, and why?
 
 :::::::::::::::  solution
 
@@ -301,15 +307,39 @@ print(f'Relative error is second order in ∆x: {c[0]:.5f}')
 Relative error is second order in ∆x: 1.99742
 ```
 
-
 ![](fig/numpy-central-difference-challenge.svg){alt="Log.-log. plot of the
 second-order error when estimating the derivative of $\cos(x)$."}
+
+#### Discussion
+
+The above approach worked well for $N$ up to $10^4$. What would happen
+in $N$ were increased much further for the same system? The size of $D$
+grows like $N^2$, so very quickly we'll run out of fast CPU memory,
+called "cache," and likely run out of RAM too, causing
+***out-of-memory*** errors. 
+
+The stencil in the challenge results in an extremely sparse operator
+representation for $D$. Thus, using a dense representation is extremely
+inefficient, regardless of the performant backend. A better solution
+code then could have
+* used sparse matrices instead of a dense one,
+* used index slicing to represent the operations,
+* or probably the fastest: used the `np.roll` instead to account for the
+  periodicity.  
+Demonstrating this last point:
+`du = (np.roll(u,-1)-np.roll(u,+1))/(2*dx)`
+allows for a much faster approximation of order $N$ instead of $N^2$.
+
+However, for $N$ beyond $10^6$, the error will begin to increase as
+rounding errors begin to dominate the total error of the approximation.
 
 :::::::::::::::::::::::::
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Using `ndarray` built-in methods
 
+## Basic signal processing 
 
 ## Loading data into Python
 
@@ -427,7 +457,7 @@ are their daily inflammation measurements.
 
 ## Data Type
 
-A Numpy array contains one or more elements
+A NumPy array contains one or more elements
 of the same type. The `type` function will only tell you that
 a variable is a NumPy array but won't tell you the type of
 thing inside the array.
@@ -950,7 +980,7 @@ D =
 
 ## Solution
 
-An alternative way to achieve the same result is to use Numpy's
+An alternative way to achieve the same result is to use NumPy's
 delete function to remove the second column of A. If you're not
 sure what the parameters of numpy.delete mean, use the help files.
 
