@@ -244,6 +244,8 @@
       <div class="accordion-body">
         <ul><li><a href="#the-ndarray">The <code>ndarray</code></a></li>
 <li><a href="#naive-matrix-multiplication">Naive matrix multiplication</a></li>
+<li><a href="#using-ndarray-built-in-methods">Using <code>ndarray</code> built-in methods</a></li>
+<li><a href="#basic-signal-processing">Basic signal processing</a></li>
 <li><a href="#loading-data-into-python">Loading data into Python</a></li>
 <li><a href="#slicing-data">Slicing data</a></li>
 <li><a href="#analyzing-data">Analyzing data</a></li>
@@ -541,7 +543,7 @@ level to transform data.</p>
 <hr class="half-width"><p>This next example would have been counter productive to introduce
 prior to NumPy, as it is an exhausting exercise to even generate
 two-dimensional lists in vanilla Python. However, it’s much simpler with
-Numpy. For instance, to generate a four-by-four of uniformly random
+NumPy. For instance, to generate a four-by-four of uniformly random
 numbers in <span class="math inline">\((0,1)\)</span>:</p>
 <div class="codewrapper sourceCode" id="cb9">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -621,9 +623,12 @@ faster than the vanilla approach.</p>
 x},\]</span> where <span class="math inline">\(\Delta x=x_1-x_0\)</span>
 is the uniform spatial step, approximates the first derivative of a
 function <span class="math inline">\(u\)</span> at a point <span class="math inline">\(x_i\)</span>. Let <span class="math inline">\(u(x)=\sin(x)\)</span> for <span class="math inline">\(x\in[0,2\pi)\)</span> and discretize the domain
-such that <span class="math inline">\(x_i = 2\pi i/N\)</span> for <span class="math inline">\(i=0,...,N\)</span>. Use NumPy to compute the first
-derivative of <span class="math inline">\(u\)</span> with <span class="math inline">\(N=10^k\)</span> for <span class="math inline">\(k=1,...,4\)</span>. Using a 2-norm, how does the
-error change with <span class="math inline">\(\Delta x\)</span>?</p>
+such that <span class="math inline">\(x_i = 2\pi i/N\)</span> for <span class="math inline">\(i=0,...,N\)</span>. Use NumPy matrix
+multiplication to compute the first derivative of <span class="math inline">\(u\)</span> with <span class="math inline">\(N=10^k\)</span> for <span class="math inline">\(k=1,...,4\)</span>, by constructing the
+appropriate dense operator <span class="math inline">\(D\)</span> for
+the stencil. Using a 2-norm, how does the error change with <span class="math inline">\(\Delta x\)</span>?</p>
+<p>Extra Credit: since the stencil is very sparse, how could we improve
+the performance of the code and go to larger <span class="math inline">\(N\)</span>? What is the largest <span class="math inline">\(N\)</span> we could go to, and why?</p>
 </div>
 </div>
 </div>
@@ -707,11 +712,35 @@ step size, <span class="math inline">\(\Delta x\)</span>.</p>
 </h3>
 <pre class="output" tabindex="0"><code>Relative error is second order in ∆x: 1.99742</code></pre>
 </div>
-<figure><img src="../fig/numpy-central-difference-challenge.svg" alt="Log.-log. plot of the second-order error when estimating the derivative of $\cos(x)$." class="figure mx-auto d-block"></figure></div>
+<figure><img src="../fig/numpy-central-difference-challenge.svg" alt="Log.-log. plot of the second-order error when estimating the derivative of $\cos(x)$." class="figure mx-auto d-block"></figure><div class="section level4">
+<h4 id="discussion">Discussion<a class="anchor" aria-label="anchor" href="#discussion"></a></h4>
+<p>The above approach worked well for <span class="math inline">\(N\)</span> up to <span class="math inline">\(10^4\)</span>. What would happen in <span class="math inline">\(N\)</span> were increased much further for the
+same system? The size of <span class="math inline">\(D\)</span> grows
+like <span class="math inline">\(N^2\)</span>, so very quickly we’ll run
+out of fast CPU memory, called “cache,” and likely run out of RAM too,
+causing <strong><em>out-of-memory</em></strong> errors.</p>
+<p>The stencil in the challenge results in an extremely sparse operator
+representation for <span class="math inline">\(D\)</span>. Thus, using a
+dense representation is extremely inefficient, regardless of the
+performant backend. A better solution code then could have * used sparse
+matrices instead of a dense one, * used index slicing to represent the
+operations, * or probably the fastest: used the <code>np.roll</code>
+instead to account for the periodicity.<br>
+Demonstrating this last point:
+<code>du = (np.roll(u,-1)-np.roll(u,+1))/(2*dx)</code> allows for a much
+faster approximation of order <span class="math inline">\(N\)</span>
+instead of <span class="math inline">\(N^2\)</span>.</p>
+<p>However, for <span class="math inline">\(N\)</span> beyond <span class="math inline">\(10^6\)</span>, the error will begin to increase as
+rounding errors begin to dominate the total error of the
+approximation.</p>
 </div>
 </div>
 </div>
-</section><section><h2 class="section-heading" id="loading-data-into-python">Loading data into Python<a class="anchor" aria-label="anchor" href="#loading-data-into-python"></a></h2>
+</div>
+</div>
+</section><section><h2 class="section-heading" id="using-ndarray-built-in-methods">Using <code>ndarray</code> built-in methods<a class="anchor" aria-label="anchor" href="#using-ndarray-built-in-methods"></a></h2>
+<hr class="half-width"></section><section><h2 class="section-heading" id="basic-signal-processing">Basic signal processing<a class="anchor" aria-label="anchor" href="#basic-signal-processing"></a></h2>
+<hr class="half-width"></section><section><h2 class="section-heading" id="loading-data-into-python">Loading data into Python<a class="anchor" aria-label="anchor" href="#loading-data-into-python"></a></h2>
 <hr class="half-width"><p>To begin processing the clinical trial inflammation data, we need to
 load it into Python. We can do that using a library called <a href="https://numpy.org/doc/stable" title="NumPy Documentation" class="external-link">NumPy</a>, which stands for Numerical
 Python. In general, you should use this library when you want to do
@@ -825,7 +854,7 @@ their daily inflammation measurements.</p>
 <div id="data-type" class="callout-inner">
 <h3 class="callout-title">Data Type</h3>
 <div class="callout-content">
-<p>A Numpy array contains one or more elements of the same type. The
+<p>A NumPy array contains one or more elements of the same type. The
 <code>type</code> function will only tell you that a variable is a NumPy
 array but won’t tell you the type of thing inside the array. We can find
 out the type of the data contained in the NumPy array.</p>
@@ -1449,7 +1478,7 @@ dimension (i.e. a column vector).</p>
 </button>
 <div id="collapseSolution8" class="accordion-collapse collapse" aria-labelledby="headingSolution8" data-bs-parent="#accordionSolution8">
 <div class="accordion-body">
-<p>An alternative way to achieve the same result is to use Numpy’s
+<p>An alternative way to achieve the same result is to use NumPy’s
 delete function to remove the second column of A. If you’re not sure
 what the parameters of numpy.delete mean, use the help files.</p>
 <div class="codewrapper sourceCode" id="cb65">
