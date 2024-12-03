@@ -341,6 +341,177 @@ rounding errors begin to dominate the total error of the approximation.
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+## Attributes of `ndarray` instances
+
+:::::::::::::::::::::::::::::::::::::::::::::::::: prereq
+
+## Jupyter Tips and Tricks
+
+To see all the possible methods and attributes under a workspace name,
+like `a` as defined by `a=np.linspace(0,1,5)`, use the <kbd>Tab</kbd>
+key after typing a dot. I.e., typing
+<kbd>a</kbd>+<kbd>.</kbd>+<kbd>Tab</kbd> will show a context menu of all
+possible sub-names to complete for that object, `a`.
+
+::::::::::::::::::::::::::::::::::::::::::::::::::
+
+NumPy's `ndarray` class provides its instances with a variety of rich
+methods. These methods allow for syntactically sweet data
+transformation. We highlight a few of the common methods below.
+
+```python
+# generate an `ndarray`
+a = np.linspace(0,1,5)
+print(f'`a`: {a}\n`a*a`: {a*a}\n`a@a`: {a@a}')
+# print a horizontal rule 72-characters long with " a " centered
+print(f'{" a ":=^72}') 
+# summary characteristics for a:
+a_min, a_mean, a_max, a_std = a.min(), a.mean(), a.max(), a.std()
+print(f'min: {a_min}\nmean: {a_mean}\nmax: {a_max}\nstandard dev.: {a_std}')
+a_sum, a_shape, a_transpose = a.sum(), a.shape, a.T
+print(f'sum: {a_sum}\nshape: {a_shape}\ntranspose: {a_transpose}')
+```
+
+```output
+`a`: [0.   0.25 0.5  0.75 1.  ]
+`a*a`: [0.     0.0625 0.25   0.5625 1.    ]
+`a@a`: 1.875
+================================== a ===================================
+min: 0.0
+mean: 0.5
+max: 1.0
+standard dev.: 0.3535533905932738
+sum: 2.5
+shape: (5,)
+transpose: [0.   0.25 0.5  0.75 1.  ]
+```
+
+Note that these object methods are also functions at NumPy's root. For 
+instance, instead of `a.min()` we could have equivalently run `np.min(a)`. 
+One reason to do the latter instead of the former is if we are
+potentially mixing object types as inputs --- `np.min(L)` will work when
+`L` is a list object, but then `L.min()` is undefined. For new and
+expert users, a good practice is to use the object's method calls
+(`a.min()`) as it is faster to write and encourages the use of
+performant `ndarray` objects over lists for numerical data. 
+
+However, not everything is defined as a method call. For instance, the
+median must be computed with `np.median`. Additionally, the convenience
+attribute `.T` is not a method call, but an ***attribute***, which
+returns a view of the `ndarray` transposed. Note from the example that
+`a` is truly one-dimensional with five elements and thus `a` is
+equivalent to `a.T`. We did not have to worry about the formal linear
+algebra rules for computing the squared 2-norm of `a` with `a@a` ---
+NumPy was able to infer that we meant to compute the inner product
+without adding a redundant second axis to `a`.
+
+## Linear algebra with NumPy
+
+### One-dimensional `ndarray` operations
+
+For this sub-section, define the following one-dimensional NumPy
+`ndarray`s and variables:
+
+```python
+N = 5
+x = np.linspace(0,1,N)
+b = np.arange(N)
+print(f'x: {x}\nb: {b}')
+```
+
+```output
+x: [0.   0.25 0.5  0.75 1.  ]
+b: [0 1 2 3 4]
+```
+
+#### elementwise operations
+
+```python
+print(f'x+b: {x+b}\nx*b: {x*b}')
+```
+
+```output
+x+b: [0.   1.25 2.5  3.75 5.  ]
+x*b: [0.   0.25 1.   2.25 4.  ]
+```
+
+#### inner products
+
+```python
+print(f'x@b: {x@b}')
+```
+
+```output
+x@b: 7.5
+```
+
+#### outer products
+
+```python
+print(f'vector outer(x,b): (x_i*b_j)e_i e_j\n{np.outer(x,b)}\n')
+print(f'addition outer(x,b): (x_i+b_j)e_i e_j\n{np.add.outer(x,b)}\n')
+```
+
+```output
+vector outer(x,b): (x_i*b_j)e_i e_j
+[[0.   0.   0.   0.   0.  ]
+ [0.   0.25 0.5  0.75 1.  ]
+ [0.   0.5  1.   1.5  2.  ]
+ [0.   0.75 1.5  2.25 3.  ]
+ [0.   1.   2.   3.   4.  ]]
+
+addition outer(x,b): (x_i+b_j)e_i e_j
+[[0.   1.   2.   3.   4.  ]
+ [0.25 1.25 2.25 3.25 4.25]
+ [0.5  1.5  2.5  3.5  4.5 ]
+ [0.75 1.75 2.75 3.75 4.75]
+ [1.   2.   3.   4.   5.  ]]
+```
+
+### Matrix-vector operations
+
+For this sub-section, define the following one- and two-dimensional NumPy
+`ndarray`s and variables:
+
+```python
+N = 4
+A = np.arange(N**2).reshape((N,N))**2
+x = np.arange(N)+1
+print(f'A:\n {A}\n\nx: {x}')
+```
+
+```output
+A:
+ [[  0   1   4   9]
+ [ 16  25  36  49]
+ [ 64  81 100 121]
+ [144 169 196 225]]
+
+x: [1 2 3 4]
+```
+
+#### Elementwise
+
+```python
+print(f'ELEMENTWISE BROADCASTING\n{"A*x": ^19}\n{A*x}')
+print(f'\n{"A+x": ^19}\n{A+x}')
+```
+
+```output
+ELEMENTWISE BROADCASTING
+        A*x
+[[  0   2  12  36]
+ [ 16  50 108 196]
+ [ 64 162 300 484]
+ [144 338 588 900]]
+
+        A+x
+[[  1   3   7  13]
+ [ 17  27  39  53]
+ [ 65  83 103 125]
+ [145 171 199 229]]
+```
+
 ## Using `ndarray` built-in methods
 
 ## Basic signal processing 
