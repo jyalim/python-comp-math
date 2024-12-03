@@ -632,6 +632,40 @@ error change with <span class="math inline">\(\Delta x\)</span>?</p>
 </button>
 <div id="collapseSolution1" class="accordion-collapse collapse" aria-labelledby="headingSolution1" data-bs-parent="#accordionSolution1">
 <div class="accordion-body">
+<p>The discretization of the domain together with the periodicity of
+<span class="math inline">\(u\)</span> and the second-order stencil
+induces a set of linear equations, <span class="math display">\[D_{ij}u_j \approx u_j'\]</span> <span class="math display">\[
+\dfrac{1}{2\Delta x}
+\begin{bmatrix}
+  0    &amp;  1     &amp; 0      &amp; ...     &amp;    0 &amp;   -1  \\
+-1    &amp;  0     &amp; 1      &amp; 0       &amp;      &amp;    0  \\
+  0    &amp; -1     &amp; 0      &amp; \ddots  &amp;\ddots&amp; \vdots\\
+\vdots &amp;  0     &amp; \ddots &amp; \ddots  &amp;    1 &amp;    0  \\
+  0    &amp;        &amp; \ddots &amp; -1      &amp;    0 &amp;    1  \\
+  1    &amp;  0     &amp; ...    &amp; 0       &amp;   -1 &amp;    0  \\
+\end{bmatrix}
+\begin{bmatrix}
+u(x_0)     \\
+u(x_1)     \\
+\vdots    \\
+u(x_{N-3}) \\
+u(x_{N-2}) \\
+u(x_{N-1}) \\
+\end{bmatrix}
+\approx
+\begin{bmatrix}
+u'(x_0)     \\
+u'(x_1)     \\
+\vdots     \\
+u'(x_{N-3}) \\
+u'(x_{N-2}) \\
+u'(x_{N-1}) \\
+\end{bmatrix}
+\]</span> The following code defines a function, <code>challenge</code>,
+which takes an input <span class="math inline">\(N\)</span> and computes
+the relative error. It also plots the degree of error on a log.-log.
+scale, demonstrating that the stencil converges quadratically with the
+step size, <span class="math inline">\(\Delta x\)</span>.</p>
 <div class="codewrapper sourceCode" id="cb14">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
