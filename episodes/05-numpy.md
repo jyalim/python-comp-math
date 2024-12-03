@@ -236,7 +236,7 @@ could go to, and why?
 
 The discretization of the domain together with the periodicity of $u$
 and the second-order stencil induces a set of linear equations,
-$$D_{ij}u_j \approx u_j'$$
+$$D_{ij}u_j \approx u_j',$$
 $$
 \dfrac{1}{2\Delta x}
 \begin{bmatrix}
@@ -263,8 +263,10 @@ u'(x_1)     \\
 u'(x_{N-3}) \\
 u'(x_{N-2}) \\
 u'(x_{N-1}) \\
-\end{bmatrix}
+\end{bmatrix},
 $$
+where $D\in\mathbb{R}^{N\times N}$.  
+
 The following code defines a function, `challenge`, which takes an input
 $N$ and computes the relative error. It also plots the degree of error
 on a log.-log. scale, demonstrating that the stencil converges
@@ -321,11 +323,13 @@ called "cache," and likely run out of RAM too, causing
 The stencil in the challenge results in an extremely sparse operator
 representation for $D$. Thus, using a dense representation is extremely
 inefficient, regardless of the performant backend. A better solution
-code then could have
+code then could have  
+
 * used sparse matrices instead of a dense one,
 * used index slicing to represent the operations,
 * or probably the fastest: used the `np.roll` instead to account for the
   periodicity.  
+
 Demonstrating this last point:
 `du = (np.roll(u,-1)-np.roll(u,+1))/(2*dx)`
 allows for a much faster approximation of order $N$ instead of $N^2$.
