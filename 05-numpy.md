@@ -20,6 +20,15 @@ exercises: 20
 
 ::::::::::::::::::::::::::::::::::::::::::::::::::
 
+$\newcommand{\coloneq}{\mathrel{≔}}$
+$\def\doubleunderline#1{\underline{\underline{#1}}}$
+$\def\tripleunderline#1{\underline{\doubleunderline{#1}}}$
+$\def\tprod{{\small \otimes}}$
+$\def\tensor#1{{\bf #1}}$
+$\def\mat#1{{\bf #1}}$
+$\renewcommand{\vec}[1]{{\bf #1}}$
+$\def\e{\vec{e}}$
+
 Words are useful, but what's more useful are the sentences and stories
 we build with them.  Similarly, while a lot of powerful, general tools
 are built into Python, specialized tools built up from these basic units
@@ -29,10 +38,15 @@ that can be called upon when needed.
 ## The `ndarray`
 
 The base work-horse of the NumPy framework is the `ndarray` object. This
-object provides a performant container for tensor algebra. For those
-familiar with MATLAB, many syntactical features and operations will 
-seem familiar, but there are subtle differences that may be awkward at
-first. For a full reference, see the official docs, [NumPy for MATLAB
+object provides a performant container for tensor algebra. Its
+performance, capabilities, base coverage, and syntactical flavor are all
+based on the default array type from MATLAB, but arguably provides
+greater flexibility for the programmer, especially for third-order or
+larger tensors.  
+
+For those familiar with MATLAB, many syntactical features and operations
+will seem familiar, but there are subtle differences that may be awkward
+at first. For a full reference, see the official docs, [NumPy for MATLAB
 users](https://numpy.org/doc/2.1/user/numpy-for-matlab-users.html), 
 which provides a Rosetta-Stone-like guide for MATLAB users.
 
@@ -41,6 +55,21 @@ external library:
 
 ```python
 import numpy as np
+```
+
+This line of code imports the external library into the workspace,
+renaming it by common convention to `np`. The `as np` is a shorthand
+that would have been equivalent to a second line of code assigning the
+name `np=numpy`. For the rest of this lesson, ***we will assume that
+NumPy has been imported into the workspace as `np`***. This only has to
+be done once per Python invocation. Typically, it will be done at the
+top of a Python script (in the header), or in the very first cell of a
+Jupyter notebook.
+
+To actually use the library --- i.e., access the classes and methods
+within it --- we have to write `np.` and then the target code.
+
+```python
 a = np.arange(5)
 print(f'{a}\n `a` is of type: {type(a)}\n and `a[0]` type: {type(a[0])}')
 ```
@@ -51,22 +80,38 @@ print(f'{a}\n `a` is of type: {type(a)}\n and `a[0]` type: {type(a[0])}')
  and `a[0]` type: <class 'numpy.int64'>
 ```
 
-The first line of code imports the external library into the workspace,
-renaming it by common convention to `np`. To access objects and methods
-within the library, we have to write `np.` and then the target code. 
+The code above prints the result of using the `numpy.arange` method,
+which is similar to the built-in `range` method, but in this instance
+instead generates a one-dimensional `ndarray` object with the first five
+non-negative integers (recall, Python is zero-indexed). Also, the
+elements of the generated `ndarray`, `a`, are not "vanilla" Python `int`
+objects. Instead they are 64-bit integer objects provided by the NumPy
+library. This is an implicit hint that we are using Python as a medium
+for all future computations: Python is slow so we use it as a convienent
+***interface*** with fast NumPy to set up the data structures and
+communicate logical instructions for data transformations.
 
-The code above prints the result of using the `arange` method, which is
-similar to the built-in `range` method, but instead generates a
-one-dimensional `ndarray` object with the first five non-negative
-integers (recall, Python is zero-indexed). Also, the elements of the
-generated `ndarray`, `a`, are not "vanilla" Python `int` objects.
-Instead they are 64-bit integer objects provided by the NumPy library.
+Note that `numpy.arange` is an ***overloaded*** function, meaning that
+we can pass a floating-point argument to generate the appropriate NumPy
+`ndarray` of `numpy.float64` values very easily.
 
-For the rest of this lesson, ***we will assume that NumPy has been
-imported as `np`***. 
+```python
+x = np.arange(5.)
+print(f'{x}\n `x` is of type: {type(x)}\n and `x[0]` type: {type(x[0])}')
+```
+```output
+[0. 1. 2. 3. 4.]
+ `x` is of type: <class 'numpy.ndarray'>
+ and `x[0]` type: <class 'numpy.float64'>
+```
 
-The NumPy `ndarray` automatically ***broadcasts*** scalar arithmetic to
-the elements of the `ndarray`:
+This is a valid use of the `numpy.arange` method, but typically we will
+want to only generate ranges of `numpy.int64` with the method. The rest
+of the materials will only use the `arange` method for generating
+integer `ndarray`s.
+
+Unlike the built-in list, the NumPy `ndarray` automatically
+***broadcasts*** scalar arithmetic to the elements of the `ndarray`:
 
 ```python
 a = np.arange(5)
@@ -88,10 +133,14 @@ odd numbers without list comprehension, improving performance as a perk,
 # benchmark generating the first ten-million odds with vanilla Python
 # NOTE: `%timeit` is a "Jupyter Magic," a Jupyter macro, not Python!
 %timeit odd_list = [2*k+1 for k in range(10**7)]
+%timeit odd_list2 = [k for k in range(1,2*10**7,2)]
+%timeit odd_list3 = list(range(1,2*10**7,2))
 ```
 
 ```output
-396 ms ± 1.3 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+393 ms ± 884 µs per loop (mean ± std. dev. of 7 runs, 1 loop each)
+198 ms ± 544 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+148 ms ± 207 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
 ```
 
 ```python
@@ -106,36 +155,41 @@ odd numbers without list comprehension, improving performance as a perk,
 8 ms ± 90 µs per loop (mean ± std. dev. of 7 runs, 100 loops each)
 ```
 
-Vanilla Python is over 30 times slower than NumPy! Our second attempt
-is nearly 50 times faster than the naive vanilla Python version. 
-Why is this? It may help to spell out the operations involved. 
+Vanilla Python is, at best and worst, nearly 20--50 times slower than
+NumPy!  Why is this? It may help to spell out the operations involved. 
 
-#### Vanilla list comprehension 
+#### Vanilla Python 
 
 In this approach, Python is asked to do ten-million product and sum
 operations (twenty-million actions), and store the results in a generic,
-unoptimized `list` object.
+unoptimized `list` object. The second attempt redundantly converts the
+generated iterates of `range(1,2*10**7,2)` to a list, improving
+performance by a factor of two. The final attempt removes the redundant
+list comprehension. 
 
 #### First NumPy approach
 
 In this solution, `odd_array = 2*np.arange(10**7)+1`, NumPy is asked to
 generate a list of the first ten-million non-negative integers, which is
-done in a performant C library with the updated memory passed back to
+done in a performant C library with the updated memory accessible from
 Python's workspace. Then NumPy is told --- through broadcasting --- to
 multiply every element by two and add one. It's still twenty-million
 actions, but the difference is that Python is only involved up to three
-times; the rest is done in an expertly written backend library.
+times; the rest is done in an expertly written backend library which is
+nearly 30 times faster than the comparable approach in vanilla Python.
 
 #### Second NumPy approach
 
 The last solution, `odd_array2 = np.arange(1,2*10**7,2)` was the
-fastest. This is because Python did almost nothing.
+fastest. This is because Python did almost nothing, resulting in a
+nearly 20-times speedup and the creation of a significantly more
+wieldable `ndarray`.
 
 #### Implicit lesson
 
 To write the best Python programs, adopt the best practices with the
 correct external libraries, minimizing the amount of compute that Python
-will be responsible for. Python is best when it's used at the highest
+will be responsible for. Python is best when it is used at the highest
 level to transform data.
 
 ## Naive matrix multiplication
@@ -158,6 +212,24 @@ print(A)
  [0.59892653 0.77743011 0.95975933 0.71425297]]
 ```
 
+Or we would have to use the standard `random` library, which encourages
+bad habits (technique with Python lists and `random` that should not be
+practiced, although nested list comprehension has its place in the
+toolbox):
+
+```python
+import random
+A = [ [random.random() for column in range(4)] for row in range(4) ]
+for row in A: print(row)
+```
+
+```output
+[0.6818582562400426, 0.6868889674612016, 0.34483486515037653, 0.9638090861458387]
+[0.24086075915520622, 0.07221778821332858, 0.43624157264612706, 0.7935877715986276]
+[0.6585256801337919, 0.2631377880223672, 0.9586513851146543, 0.9070537970347129]
+[0.1566693962998439, 0.8860807403362514, 0.039423876906426014, 0.44815646838680734]
+```
+
 We will write a few ***functions*** to do matrix multiplication with
 vanilla Python.
 
@@ -171,12 +243,25 @@ def vanilla_matrix_vector_product(A,x):
     y = [ vanilla_dot_product(a,x) for a in A ]
     return y
 def vanilla_matrix_tranpose(A):
+    # `*A` passes the first-elements of `A` --- the rows --- to zip as
+    # arguments, as if we wrote every row of `A` explicitly.
+    # `zip` is a built-in function that iteratively combines the first
+    # elements of its arguments, allowing us to iterate over the cols of
+    # `A`.
+    # `map` is a built-in function that shortcuts a for loop: we are
+    # mapping every column of `A` to the `list` class, converting the
+    # immutable tuples to lists.
+    # The final `list` ensures that `A_Transposed` is a two-dimensional
+    # container of "column vectors."
     A_Tranposed = list(map(list,zip(*A)))
     return A_Tranposed
 def vanilla_matrix_matrix_product(A,B):
-    # take the transpose of B
-    BT = vanilla_matrix_tranpose(B)
-    CT = [ vanilla_matrix_vector_product(A,b_col) for b_col in BT ]
+    # `*B` passes the first-elements of `B` --- the rows --- to zip as
+    # arguments, as if we wrote every row of `B` explicitly.
+    # `zip` is a built-in function that iteratively combines the first
+    # elements of its arguments, allowing us to iterate over the cols of
+    # `B`.
+    CT = [ vanilla_matrix_vector_product(A,b_col) for b_col in zip(*B) ]
     C  = vanilla_matrix_tranpose(CT)
     return C
 
@@ -201,15 +286,15 @@ print(f'Are all elements close? {np.all(np.isclose(C,np.array(CL)))}')
 ```
 
 ```output
-22.9 ms ± 49.2 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
-355 µs ± 9.38 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
-Fro. norm: 2.354728334780352e-13
+22.5 ms ± 58.7 µs per loop (mean ± std. dev. of 7 runs, 10 loops each)
+303 µs ± 15.5 µs per loop (mean ± std. dev. of 7 runs, 1,000 loops each)
+Fro. norm: 2.3464053421603193e-13
 Are all elements close? True
 ```
 
 The simpler matrix-matrix product provided by NumPy, by just using the
 `@` operator for the two matrices, is nearly 65 times faster than the
-vanilla approach.
+vanilla approach, and will automatically use multiple cores for us.
 
 :::::::::::::::::::::::::::::::::::::::  challenge
 
@@ -269,8 +354,9 @@ where $D\in\mathbb{R}^{N\times N}$.
 
 The following code defines a function, `challenge`, which takes an input
 $N$ and computes the relative error. It also plots the degree of error
-on a log.-log. scale, demonstrating that the stencil converges
-quadratically with the step size, $\Delta x$.
+on a log.-log. scale, demonstrating that the stencil's truncation error
+converges to the analytical solution quadratically with the step size,
+$\Delta x$.
 
 ```python
 import numpy as np
@@ -360,23 +446,25 @@ methods. These methods allow for syntactically sweet data
 transformation. We highlight a few of the common methods below.
 
 ```python
-# generate an `ndarray`
-a = np.linspace(0,1,5)
-print(f'`a`: {a}\n`a*a`: {a*a}\n`a@a`: {a@a}')
-# print a horizontal rule 72-characters long with " a " centered
-print(f'{" a ":=^72}') 
-# summary characteristics for a:
-a_min, a_mean, a_max, a_std = a.min(), a.mean(), a.max(), a.std()
-print(f'min: {a_min}\nmean: {a_mean}\nmax: {a_max}\nstandard dev.: {a_std}')
-a_sum, a_shape, a_transpose = a.sum(), a.shape, a.T
-print(f'sum: {a_sum}\nshape: {a_shape}\ntranspose: {a_transpose}')
+# generate an `ndarray` over [0,1] with 5 points with uniform spacing,
+# such that $x_k=a+k(b-a)/(N-1)$ for $k\in[0,N)\subset\mathbb{Z}$.
+a,b,N = 0,1,5
+x = np.linspace(a,b,N)
+print(f'`x`: {x}\n`x*x`: {x*x}\n`x@x`: {x@x}')
+# print a horizontal rule 72-characters long with " x " centered
+print(f'{" x ":=^72}') 
+# summary characteristics for x:
+x_min, x_mean, x_max, x_std = x.min(), x.mean(), x.max(), x.std()
+print(f'min: {x_min}\nmean: {x_mean}\nmax: {x_max}\nstandard dev.: {x_std}')
+x_sum, x_shape, x_transpose = x.sum(), x.shape, x.T
+print(f'sum: {x_sum}\nshape: {x_shape}\ntranspose: {x_transpose}')
 ```
 
 ```output
-`a`: [0.   0.25 0.5  0.75 1.  ]
-`a*a`: [0.     0.0625 0.25   0.5625 1.    ]
-`a@a`: 1.875
-================================== a ===================================
+`x`: [0.   0.25 0.5  0.75 1.  ]
+`x*x`: [0.     0.0625 0.25   0.5625 1.    ]
+`x@x`: 1.875
+================================== x ===================================
 min: 0.0
 mean: 0.5
 max: 1.0
@@ -386,81 +474,186 @@ shape: (5,)
 transpose: [0.   0.25 0.5  0.75 1.  ]
 ```
 
-Note that these object methods are also functions at NumPy's root. For 
-instance, instead of `a.min()` we could have equivalently run `np.min(a)`. 
-One reason to do the latter instead of the former is if we are
-potentially mixing object types as inputs --- `np.min(L)` will work when
-`L` is a list object, but then `L.min()` is undefined. For new and
+Note that these object methods are also functions at NumPy's root. For
+instance, instead of `x.min()` we could have equivalently run
+`np.min(x)`.  One reason to do the latter instead of the former is if we
+are potentially mixing object types as inputs --- `np.min(L)` will work
+when `L` is a list object, but then `L.min()` is undefined. For new and
 expert users, a good practice is to use the object's method calls
-(`a.min()`) as it is faster to write and encourages the use of
+(`x.min()`) as it is faster to write and encourages the use of
 performant `ndarray` objects over lists for numerical data. 
 
 However, not everything is defined as a method call. For instance, the
 median must be computed with `np.median`. Additionally, the convenience
 attribute `.T` is not a method call, but an ***attribute***, which
 returns a view of the `ndarray` transposed. Note from the example that
-`a` is truly one-dimensional with five elements and thus `a` is
-equivalent to `a.T`. We did not have to worry about the formal linear
-algebra rules for computing the squared 2-norm of `a` with `a@a` ---
+`x` is truly one-dimensional with five elements and thus `x` is
+equivalent to `x.T`. We did not have to worry about the formal linear
+algebra rules for computing the squared 2-norm of `x` with `x@x` ---
 NumPy was able to infer that we meant to compute the inner product
-without adding a redundant second axis to `a`.
+without adding a redundant second dimension --- or ***axis*** --- to `x`.
 
 ## Linear algebra with NumPy
 
-### One-dimensional `ndarray` operations
+In this section, we will use some tensor algebra to make the operations
+more clear, as well as to introduce ***Einstein summation notation***,
+which will allow us to use a very powerful NumPy tool later. 
+
+In tensor algebra, tensors are represented with linear combinations of
+basis tensors. For instance, for a simple three-dimensional vector,
+$\vec{u}$, and a set of Euclidean unit vectors, $\e_k$,
+
+$$
+\vec{u}
+  = \begin{bmatrix}u_1\\u_2\\u_3\end{bmatrix} 
+  = u_1 \begin{bmatrix}1\\0\\0\end{bmatrix} 
+  + u_2 \begin{bmatrix}0\\1\\0\end{bmatrix} 
+  + u_3 \begin{bmatrix}0\\0\\1\end{bmatrix} 
+  = u_1 \e_1 + u_2 \e_2 + u_3 \e_3
+  = \sum_{k=1}^3 u_k \e_k.
+$$
+
+The Cartesian outer products of Euclidean unit vectors form a natural
+basis for representing matrices:
+
+$$
+\mat{A}
+  = \begin{bmatrix}A_{11}&A_{12}\\A_{21}&A_{22}\\\end{bmatrix} 
+  = A_{11} \begin{bmatrix}1&0\\0&0\\\end{bmatrix}
+  + A_{12} \begin{bmatrix}0&1\\0&0\\\end{bmatrix}
+  + A_{21} \begin{bmatrix}0&0\\1&0\\\end{bmatrix}
+  + A_{22} \begin{bmatrix}0&0\\0&1\\\end{bmatrix}
+  \\
+  = \sum_{j=1}^2\sum_{k=1}^2 A_{jk} \e_j \e_k^T 
+  \\
+  = \sum_{j=1}^2\sum_{k=1}^2 A_{jk} \e_j \tprod \e_k.
+$$
+
+The notation $\tprod$ refers to the ***tensor product*** that becomes
+necessary for representing higher-order tensors.
+
+Tensor-tensor calculations then involve carrying out products of sums.
+For instance, an inner product of two $\mathbb{R}^2$ vectors:
+
+$$ 
+\vec{u}^T\vec{v} 
+= \left(
+  \sum_{j=1}^2 u_j\e_j
+\right)^T 
+\sum_{k=1}^2 v_k\vec{e_k}
+\\
+= 
+  u_1 v_1 \e_1^T\e_1 
++ u_1 v_2 \e_1^T\e_2
++ u_2 v_1 \e_2^T\e_1
++ u_2 v_2 \e_2^T\e_2
+\\
+= \sum_{j=1}^2\sum_{k=1}^2 u_j v_k\e_j^T\e_k
+= \sum_{j=1}^2\sum_{k=1}^2 u_j v_k \delta_{jk}
+= \sum_{j=1}^2 u_j v_j
+= u_1 v_1 + u_2 v_2,
+$$
+
+where $\delta_{jk}$ is the Kronecker delta, which is zero unless $j=k$,
+in which case it's one [thanks to using a(n) (orthonormal) basis].
+
+
+#### Einstein Summation Notation
+
+Einstein summation notation is a more compact representation of tensor
+algebra, that simply drops the summation symbols. Continuing from the
+matrix example above, $\mat{A}= A_{jk}\e_j\tprod \e_k$.
+
+The inner product example also reduces to 
+$\vec{u}\cdot\vec{v}=u_j v_k \e_j\cdot\e_k = u_j v_j$.
+
+
+### D.1.1: One-dimensional `ndarray` operations
 
 For this sub-section, define the following one-dimensional NumPy
 `ndarray`s and variables:
 
+$$
+\texttt{N} \coloneq 5,
+\\
+\textrm{Let: } k\in[0,N)\subset\mathbb{Z},
+\\
+\texttt{x} \coloneq \vec{x} = \frac{k}{N-1} \e_k,
+\\
+\texttt{a} \coloneq \vec{a} = k \e_k.
+$$
+
 ```python
 N = 5
 x = np.linspace(0,1,N)
-b = np.arange(N)
-print(f'x: {x}\nb: {b}')
+a = np.arange(N)
+print(f'x: {x}\na: {a}')
 ```
 
 ```output
 x: [0.   0.25 0.5  0.75 1.  ]
-b: [0 1 2 3 4]
+a: [0 1 2 3 4]
 ```
 
-#### elementwise operations
+#### D.1.1.a elementwise operations
+
+$$\texttt{x+a}\coloneq\vec{x}+\vec{a}= (x_i+a_i) \e_i$$
+
+$$\texttt{x*a}\coloneq\vec{x}\odot\vec{a}= x_i a_i \e_i$$
 
 ```python
-print(f'x+b: {x+b}\nx*b: {x*b}')
+print(f'x+a: {x+a}\nx*a: {x*a}')
 ```
 
 ```output
-x+b: [0.   1.25 2.5  3.75 5.  ]
-x*b: [0.   0.25 1.   2.25 4.  ]
+x+a: [0.   1.25 2.5  3.75 5.  ]
+x*a: [0.   0.25 1.   2.25 4.  ]
 ```
 
-#### inner products
+#### D.1.1.b inner products
+
+$$\texttt{x@a}\coloneq\vec{x}\cdot\vec{a}= x_i a_i$$
 
 ```python
-print(f'x@b: {x@b}')
+print(f'x@a: {x@a}')
 ```
 
 ```output
-x@b: 7.5
+x@a: 7.5
 ```
 
-#### outer products
+#### D.1.1.c outer products
+
+$$
+\texttt{np.outer(x,a)}
+\coloneq
+\vec{x}\tprod\vec{a}
+=x_i a_j \e_i\tprod\e_j
+$$
+
+$$
+\texttt{np.add.outer(x,a)}
+\coloneq
+\vec{x}\tprod\vec{1}+\vec{1}\tprod\vec{a}
+= (x_i + a_j)\,\, \e_i\tprod\e_j,
+$$
+
+where $\vec{1}$ is a vector of all ones.
 
 ```python
-print(f'vector outer(x,b): (x_i*b_j)e_i e_j\n{np.outer(x,b)}\n')
-print(f'addition outer(x,b): (x_i+b_j)e_i e_j\n{np.add.outer(x,b)}\n')
+print(f'vector outer(x,a): (x_i*a_j)e_i e_j\n{np.outer(x,a)}\n')
+print(f'addition outer(x,a): (x_i+a_j)e_i e_j\n{np.add.outer(x,a)}\n')
 ```
 
 ```output
-vector outer(x,b): (x_i*b_j)e_i e_j
+vector outer(x,a): (x_i*a_j) e_i e_j
 [[0.   0.   0.   0.   0.  ]
  [0.   0.25 0.5  0.75 1.  ]
  [0.   0.5  1.   1.5  2.  ]
  [0.   0.75 1.5  2.25 3.  ]
  [0.   1.   2.   3.   4.  ]]
 
-addition outer(x,b): (x_i+b_j)e_i e_j
+addition outer(x,a): (x_i+a_j) e_i e_j
 [[0.   1.   2.   3.   4.  ]
  [0.25 1.25 2.25 3.25 4.25]
  [0.5  1.5  2.5  3.5  4.5 ]
@@ -468,10 +661,22 @@ addition outer(x,b): (x_i+b_j)e_i e_j
  [1.   2.   3.   4.   5.  ]]
 ```
 
-### Matrix-vector operations
+### D.2.1 Matrix-vector operations
 
 For this sub-section, define the following one- and two-dimensional NumPy
 `ndarray`s and variables:
+
+$$
+\texttt{N} \coloneq N=4,
+\\
+\textrm{Let: } k\in[0,N)\subset\mathbb{Z}, 
+\quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor, 
+\quad \nu= k \bmod N
+\\
+\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu
+\\
+\texttt{x} \coloneq \vec{x} = (k+1)\,\,\e_k
+$$
 
 ```python
 N = 4
@@ -490,27 +695,190 @@ A:
 x: [1 2 3 4]
 ```
 
-#### Elementwise
+#### D.2.1.a Elementwise
+
+Let $i,j,k\in[0,N)\subset\mathbb{Z}$.
+
+$$
+\texttt{A+x}
+\coloneq 
+\mat{A} + (\vec{1}\tprod \vec{x})
+=
+(A_{ij}+x_j)\,\e_i\tprod\e_j
+$$
+
+$$
+\texttt{A*x}
+\coloneq 
+\mat{A} \odot (\vec{1}\tprod \vec{x})
+=
+(A_{ij} x_j)\,\e_i\tprod\e_j
+$$
 
 ```python
-print(f'ELEMENTWISE BROADCASTING\n{"A*x": ^19}\n{A*x}')
-print(f'\n{"A+x": ^19}\n{A+x}')
+print(f'ELEMENTWISE BROADCASTING\n{"A+x": ^19}\n{A+x}')
+print(f'\n{"A*x": ^19}\n{A*x}')
 ```
 
 ```output
 ELEMENTWISE BROADCASTING
+        A+x
+[[  1   3   7  13]
+ [ 17  27  39  53]
+ [ 65  83 103 125]
+ [145 171 199 229]]
+
         A*x
 [[  0   2  12  36]
  [ 16  50 108 196]
  [ 64 162 300 484]
  [144 338 588 900]]
 
-        A+x
-[[  1   3   7  13]
- [ 17  27  39  53]
- [ 65  83 103 125]
- [145 171 199 229]]
 ```
+
+#### D.2.1.b Matrix-vector operations
+
+Let $i,j\in[0,N)\subset\mathbb{Z}$.
+
+$$
+\texttt{x@A} 
+\coloneq
+\vec{x}^T \mat{A} 
+=
+A_{ij} x_i \e_j^T
+$$
+
+$$
+\texttt{A@x} 
+\coloneq
+\mat{A} \vec{x}
+=
+A_{ij} x_j \e_i
+$$
+
+```python
+print(f'\n{"x@A": ^19}\n{x@A}')
+print(f'\n{"A@x": ^19}\n{A@x}')
+```
+
+```output
+x@A
+[ 800  970 1160 1370]
+
+A@x
+[  50  370 1010 1970]
+```
+
+### D.2.2 Matrix-matrix operations
+
+For this sub-section, define the following two-dimensional NumPy
+`ndarray`s and variables:
+
+$$
+\texttt{N} \coloneq N=2,
+\\
+\textrm{Let: } k\in[0,N)\subset\mathbb{Z}, 
+\quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor, 
+\quad \nu= k \bmod N
+\\
+\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu
+\\
+\texttt{B} \coloneq \mat{B} = k\,\, \e_\mu \tprod \e_\nu
+$$
+
+```python
+N = 2
+A = np.arange(N**2).reshape((N,N))**2
+B = np.arange(N**2).reshape((N,N))
+print(f'A:\n {A}\n\nB:\n {B}')
+```
+
+```output
+A:
+ [[0 1]
+ [4 9]]
+
+B:
+ [[0 1]
+ [2 3]]
+```
+
+#### D.2.2.a elementwise
+
+Let $i,j\in[0,N)\subset\mathbb{Z}$.
+
+$$
+\texttt{A+B} 
+\coloneq
+\mat{A} + \mat{B}
+=
+(A_{ij} + B_{ij}) \,\, \e_i\tprod\e_j
+$$
+
+$$
+\texttt{A*B} 
+\coloneq
+\mat{A} \odot \mat{B}
+=
+A_{ij} B_{ij} \,\, \e_i\tprod\e_j
+$$
+
+```python
+print(f'ELEMENTWISE OPs\n\n{"A+B": ^9}\n{A+B}')
+print(f'\n{"A*B": ^9}\n{A*B}')
+```
+
+```output
+
+ELEMENTWISE BROADCASTING
+   A+B
+[[ 0  2]
+ [ 6 12]]
+
+   A*B
+[[ 0  1]
+ [ 8 27]]
+```
+
+#### D.2.2.b matrix-matrix product
+
+Let $i,j,k\in[0,N)\subset\mathbb{Z}$.
+
+$$
+\texttt{A@B} 
+\coloneq
+\mat{A} \mat{B}
+=
+A_{ij} B_{jk} \e_i\tprod\e_k
+$$
+
+$$
+\texttt{B.T@A} 
+\coloneq
+\mat{B}^T \mat{A}
+=
+B_{ji} A_{jk} \e_i\tprod\e_k
+$$
+
+```python
+print(f'Matrix-Matrix Mult.\n\n{"A@B": ^9}\n{A@B}')
+print(f'\n{"B.T@A": ^9}\n{B.T@A}')
+```
+
+```output
+Matrix-Matrix Mult.
+
+   A@B
+[[ 2  3]
+ [18 31]]
+
+  B.T@A
+[[ 8 18]
+ [12 28]]
+```
+
+
+
 
 ## Using `ndarray` built-in methods
 
