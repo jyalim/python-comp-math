@@ -769,6 +769,91 @@ A@x
 [  50  370 1010 1970]
 ```
 
+#### D.2.1.c Solving $\mat{A}\vec{x}=\vec{b}$
+
+Let $i,j\in[0,N)\subset\mathbb{Z}$ and
+let $\vec{b} = \mat{A}\vec{x}$. 
+Then $\vec{x}=A^{-1}_{ij}b_j\e_i$.
+
+###### D.2.1.c.i Matrix inversion (bad)
+
+```python
+b = A@x
+A_inverse = np.linalg.inv(A)
+x_approx  = A_inverse@b
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  2.294921930407801
+```
+
+###### D.2.1.c.ii Implicit solve (good)
+
+```python
+b = A@x
+x_approx  = np.linalg.solve(A,b)
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  0.012225
+```
+
+###### D.2.1.c.iii PLU solve (good, equivalent to previous)
+
+```python
+import scipy
+b = A@x
+LU_and_pivots = scipy.linalg.lu_factor(A)
+x_approx  = scipy.linalg.lu_solve(LU_and_pivots,b)
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  0.012225
+```
+
+###### D.2.1.c.iv Eig solve (worse)
+
+```python
+b = A@x
+evals,evecs = np.linalg.eig(A)
+x_approx = evecs @ (np.linalg.solve(evecs,b)/evals)
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  16.3456
+```
+
+###### D.2.1.c.v SVD solve (worse)
+
+```python
+b = A@x
+U,s,VT = np.linalg.svd(A)
+x_approx = VT.T@(np.diag(1/s)@(U.T@b))
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  22.9879
+```
+
+###### D.2.1.c.vi QR solve (worst)
+
+```python
+b = A@x
+Q,R = np.linalg.qr(A)
+x_approx = np.linalg.solve(R,Q.T@b)
+print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
+```
+
+```output
+Rel. Err.:  174.09546703487592
+```
+
+
 ### D.2.2 Matrix-matrix operations
 
 For this sub-section, define the following two-dimensional NumPy
@@ -876,9 +961,6 @@ Matrix-Matrix Mult.
 [[ 8 18]
  [12 28]]
 ```
-
-
-
 
 ## Using `ndarray` built-in methods
 
