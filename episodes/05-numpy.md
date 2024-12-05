@@ -669,13 +669,15 @@ For this sub-section, define the following one- and two-dimensional NumPy
 $$
 \texttt{N} \coloneq N=4,
 \\
-\textrm{Let: } k\in[0,N)\subset\mathbb{Z}, 
+\textrm{Let: } k\in[0,N^2)\subset\mathbb{Z}, 
 \quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor, 
 \quad \nu= k \bmod N
 \\
-\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu
+\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu.
 \\
-\texttt{x} \coloneq \vec{x} = (k+1)\,\,\e_k
+\textrm{Let: } j\in[0,N)\subset\mathbb{Z}, 
+\\
+\texttt{x} \coloneq \vec{x} = (j+1)\,\,\e_j.
 $$
 
 ```python
@@ -775,7 +777,7 @@ Let $i,j\in[0,N)\subset\mathbb{Z}$ and
 let $\vec{b} = \mat{A}\vec{x}$. 
 Then $\vec{x}=A^{-1}_{ij}b_j\e_i$.
 
-###### D.2.1.c.i Matrix inversion (bad)
+##### D.2.1.c.i Matrix inversion (bad)
 
 ```python
 b = A@x
@@ -788,7 +790,7 @@ print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 Rel. Err.:  2.294921930407801
 ```
 
-###### D.2.1.c.ii Implicit solve (good)
+##### D.2.1.c.ii Implicit solve (good)
 
 ```python
 b = A@x
@@ -800,7 +802,7 @@ print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 Rel. Err.:  0.012225
 ```
 
-###### D.2.1.c.iii PLU solve (good, equivalent to previous)
+##### D.2.1.c.iii PLU solve (good, equivalent to previous)
 
 ```python
 import scipy
@@ -814,7 +816,7 @@ print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 Rel. Err.:  0.012225
 ```
 
-###### D.2.1.c.iv Eig solve (worse)
+##### D.2.1.c.iv Eig solve (worse)
 
 ```python
 b = A@x
@@ -827,12 +829,12 @@ print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 Rel. Err.:  16.3456
 ```
 
-###### D.2.1.c.v SVD solve (worse)
+##### D.2.1.c.v SVD solve (worse)
 
 ```python
 b = A@x
 U,s,VT = np.linalg.svd(A)
-x_approx = VT.T@(np.diag(1/s)@(U.T@b))
+x_approx = VT.T@((U.T@b)/s)
 print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 ```
 
@@ -840,7 +842,7 @@ print('Rel. Err.: ',np.linalg.norm(x_approx-x)/np.linalg.norm(x))
 Rel. Err.:  22.9879
 ```
 
-###### D.2.1.c.vi QR solve (worst)
+##### D.2.1.c.vi QR solve (worst)
 
 ```python
 b = A@x
@@ -862,7 +864,7 @@ For this sub-section, define the following two-dimensional NumPy
 $$
 \texttt{N} \coloneq N=2,
 \\
-\textrm{Let: } k\in[0,N)\subset\mathbb{Z}, 
+\textrm{Let: } k\in[0,N^2)\subset\mathbb{Z}, 
 \quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor, 
 \quad \nu= k \bmod N
 \\
