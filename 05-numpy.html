@@ -378,7 +378,7 @@
       </div>
       <hr></nav><main id="main-content" class="main-content"><div class="container lesson-content">
         <h1>Numeric Python (NumPy)</h1>
-        <p>Last updated on 2024-12-04 |
+        <p>Last updated on 2024-12-05 |
 
         <a href="https://github.com/jyalim/python-comp-math/edit/main/episodes/05-numpy.md" class="external-link">Edit this page <i aria-hidden="true" data-feather="edit"></i></a></p>
 
@@ -1075,13 +1075,15 @@ NumPy <code>ndarray</code>s and variables:</p>
 <p><span class="math display">\[
 \texttt{N} \coloneq N=4,
 \\
-\textrm{Let: } k\in[0,N)\subset\mathbb{Z},
+\textrm{Let: } k\in[0,N^2)\subset\mathbb{Z},
 \quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor,
 \quad \nu= k \bmod N
 \\
-\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu
+\texttt{A} \coloneq \mat{A} = k^2\,\, \e_\mu \tprod \e_\nu.
 \\
-\texttt{x} \coloneq \vec{x} = (k+1)\,\,\e_k
+\textrm{Let: } j\in[0,N)\subset\mathbb{Z},
+\\
+\texttt{x} \coloneq \vec{x} = (j+1)\,\,\e_j.
 \]</span></p>
 <div class="codewrapper sourceCode" id="cb31">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
@@ -1182,8 +1184,8 @@ A@x
 <p>Let <span class="math inline">\(i,j\in[0,N)\subset\mathbb{Z}\)</span>
 and let <span class="math inline">\(\vec{b} = \mat{A}\vec{x}\)</span>.
 Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
-<div class="section level6">
-<h6 id="d-2-1-c-i-matrix-inversion-bad">D.2.1.c.i Matrix inversion (bad)<a class="anchor" aria-label="anchor" href="#d-2-1-c-i-matrix-inversion-bad"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-i-matrix-inversion-bad">D.2.1.c.i Matrix inversion (bad)<a class="anchor" aria-label="anchor" href="#d-2-1-c-i-matrix-inversion-bad"></a></h5>
 <div class="codewrapper sourceCode" id="cb37">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1198,8 +1200,8 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <pre class="output" tabindex="0"><code>Rel. Err.:  2.294921930407801</code></pre>
 </div>
 </div>
-<div class="section level6">
-<h6 id="d-2-1-c-ii-implicit-solve-good">D.2.1.c.ii Implicit solve (good)<a class="anchor" aria-label="anchor" href="#d-2-1-c-ii-implicit-solve-good"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-ii-implicit-solve-good">D.2.1.c.ii Implicit solve (good)<a class="anchor" aria-label="anchor" href="#d-2-1-c-ii-implicit-solve-good"></a></h5>
 <div class="codewrapper sourceCode" id="cb39">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1213,8 +1215,8 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <pre class="output" tabindex="0"><code>Rel. Err.:  0.012225</code></pre>
 </div>
 </div>
-<div class="section level6">
-<h6 id="d-2-1-c-iii-plu-solve-good-equivalent-to-previous">D.2.1.c.iii PLU solve (good, equivalent to previous)<a class="anchor" aria-label="anchor" href="#d-2-1-c-iii-plu-solve-good-equivalent-to-previous"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-iii-plu-solve-good-equivalent-to-previous">D.2.1.c.iii PLU solve (good, equivalent to previous)<a class="anchor" aria-label="anchor" href="#d-2-1-c-iii-plu-solve-good-equivalent-to-previous"></a></h5>
 <div class="codewrapper sourceCode" id="cb41">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1230,8 +1232,8 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <pre class="output" tabindex="0"><code>Rel. Err.:  0.012225</code></pre>
 </div>
 </div>
-<div class="section level6">
-<h6 id="d-2-1-c-iv-eig-solve-worse">D.2.1.c.iv Eig solve (worse)<a class="anchor" aria-label="anchor" href="#d-2-1-c-iv-eig-solve-worse"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-iv-eig-solve-worse">D.2.1.c.iv Eig solve (worse)<a class="anchor" aria-label="anchor" href="#d-2-1-c-iv-eig-solve-worse"></a></h5>
 <div class="codewrapper sourceCode" id="cb43">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1246,14 +1248,14 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <pre class="output" tabindex="0"><code>Rel. Err.:  16.3456</code></pre>
 </div>
 </div>
-<div class="section level6">
-<h6 id="d-2-1-c-v-svd-solve-worse">D.2.1.c.v SVD solve (worse)<a class="anchor" aria-label="anchor" href="#d-2-1-c-v-svd-solve-worse"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-v-svd-solve-worse">D.2.1.c.v SVD solve (worse)<a class="anchor" aria-label="anchor" href="#d-2-1-c-v-svd-solve-worse"></a></h5>
 <div class="codewrapper sourceCode" id="cb45">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
 <pre class="sourceCode python" tabindex="0"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" tabindex="-1"></a>b <span class="op">=</span> A<span class="op">@</span>x</span>
 <span id="cb45-2"><a href="#cb45-2" tabindex="-1"></a>U,s,VT <span class="op">=</span> np.linalg.svd(A)</span>
-<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>x_approx <span class="op">=</span> VT.T<span class="op">@</span>(np.diag(<span class="dv">1</span><span class="op">/</span>s)<span class="op">@</span>(U.T<span class="op">@</span>b))</span>
+<span id="cb45-3"><a href="#cb45-3" tabindex="-1"></a>x_approx <span class="op">=</span> VT.T<span class="op">@</span>((U.T<span class="op">@</span>b)<span class="op">/</span>s)</span>
 <span id="cb45-4"><a href="#cb45-4" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Rel. Err.: '</span>,np.linalg.norm(x_approx<span class="op">-</span>x)<span class="op">/</span>np.linalg.norm(x))</span></code></pre>
 </div>
 <div class="codewrapper">
@@ -1262,8 +1264,8 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <pre class="output" tabindex="0"><code>Rel. Err.:  22.9879</code></pre>
 </div>
 </div>
-<div class="section level6">
-<h6 id="d-2-1-c-vi-qr-solve-worst">D.2.1.c.vi QR solve (worst)<a class="anchor" aria-label="anchor" href="#d-2-1-c-vi-qr-solve-worst"></a></h6>
+<div class="section level5">
+<h5 id="d-2-1-c-vi-qr-solve-worst">D.2.1.c.vi QR solve (worst)<a class="anchor" aria-label="anchor" href="#d-2-1-c-vi-qr-solve-worst"></a></h5>
 <div class="codewrapper sourceCode" id="cb47">
 <h3 class="code-label">PYTHON<i aria-hidden="true" data-feather="chevron-left"></i><i aria-hidden="true" data-feather="chevron-right"></i>
 </h3>
@@ -1287,7 +1289,7 @@ Then <span class="math inline">\(\vec{x}=A^{-1}_{ij}b_j\e_i\)</span>.</p>
 <p><span class="math display">\[
 \texttt{N} \coloneq N=2,
 \\
-\textrm{Let: } k\in[0,N)\subset\mathbb{Z},
+\textrm{Let: } k\in[0,N^2)\subset\mathbb{Z},
 \quad \mu=\Bigl\lfloor \frac{k}{N}\Bigr\rfloor,
 \quad \nu= k \bmod N
 \\
@@ -2405,7 +2407,7 @@ the specified axis.</li>
   "url": "https://jyalim.github.io/python-comp-math/05-numpy.html",
   "identifier": "https://jyalim.github.io/python-comp-math/05-numpy.html",
   "dateCreated": "2024-11-22",
-  "dateModified": "2024-12-04",
+  "dateModified": "2024-12-05",
   "datePublished": "2024-12-05"
 }
 
